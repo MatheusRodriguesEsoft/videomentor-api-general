@@ -7,10 +7,7 @@ spring:
     driver-class-name: org.postgresql.Driver
     username: ${DATABASE_USERNAME}
     password: ${DATABASE_PASSWORD}
-    url:
-      ${DATABASE_URL}
-      # url: jdbc:postgresql://localhost:5432/videomentor
-      # url: jdbc:postgresql:///videomentor?cloudSqlInstance=videomentor-378613:us-central1:db-videomentor&socketFactory=com.google.cloud.sql.postgres.SocketFactory&user=postgres&password=Xava0199
+    url: ${DATABASE_URL}
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: false
