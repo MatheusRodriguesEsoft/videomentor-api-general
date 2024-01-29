@@ -1,16 +1,12 @@
-FROM ubuntu:latest AS build
+FROM maven:3.8.6 as build
 
-RUN apt-get update
-RUN apt-get install openjdk-17-jdk -y
-COPY . .
+COPY /src /app/src
+COPY /pom.xml /app
 
-RUN apt-get install maven -y
-RUN mvn clean install
+RUN mvn -f /app/pom.xml clean package -Dmaven.test.skip
 
-FROM openjdk:17-jdk-slim
-
+FROM openjdk:18-jdk-alpine
 EXPOSE 8080
+COPY --from=build /app/target/*.jar app.jar
 
-COPY --from=build videomentor/target/videomentor.api-0.0.1-SNAPSHOT.jar app.jar
-
-ENTRYPOINT [ "java", "-jar", "app.jar" ]
+ENTRYPOINT [ "java", "-jar", "/app.jar" ]
