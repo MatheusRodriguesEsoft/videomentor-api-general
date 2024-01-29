@@ -4,15 +4,14 @@ java:
 
 spring:
   datasource:
-    driver-class-name: org.postgresql.Driver
     username: ${DATABASE_USERNAME}
     password: ${DATABASE_PASSWORD}
-    url: jdbc:postgresql://matheus:3TFVyckeLybqds3fm6obXojR4jmZruuZ@dpg-cms0uuo21fec73cigubg-a/videomentor
+    url: ${DATABASE_URL}
   jpa:
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: false
     properties:
       hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
         formate_sql: true
         enable_lazy_load_no_trans: true
     generate-ddl: true
