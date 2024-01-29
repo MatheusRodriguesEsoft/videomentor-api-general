@@ -9,9 +9,7 @@ spring:
     password: ${DATABASE_PASSWORD}
     url: jbdc:postgres://matheus:3TFVyckeLybqds3fm6obXojR4jmZruuZ@dpg-cms0uuo21fec73cigubg-a/videomentor
   jpa:
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: false
     properties:
       hibernate:
