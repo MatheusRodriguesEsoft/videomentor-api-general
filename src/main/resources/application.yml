@@ -4,10 +4,10 @@ java:
 
 spring:
   datasource:
-    # driver-class-name: org.postgresql.Driver
+    driver-class-name: org.postgresql.Driver
     username: ${DATABASE_USERNAME}
     password: ${DATABASE_PASSWORD}
-    url: jbdc:postgres://matheus:3TFVyckeLybqds3fm6obXojR4jmZruuZ@dpg-cms0uuo21fec73cigubg-a/videomentor
+    url: jdbc:postgresql://matheus:3TFVyckeLybqds3fm6obXojR4jmZruuZ@dpg-cms0uuo21fec73cigubg-a/videomentor
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: false
