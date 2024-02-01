@@ -21,9 +21,7 @@ public class ClasseController implements AbstractController<ClasseDto> {
 
   private ClasseService classeService;
 
-  public ClasseController(
-    br.com.videomentor.api.classe.controller.ClasseService classeService
-  ) {
+  public ClasseController(ClasseService classeService) {
     this.classeService = classeService;
   }
 
