@@ -1,0 +1,40 @@
+java:
+  runtime:
+    version: 17
+
+spring:
+  datasource:
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+    url: jdbc:postgresql://dpg-cms0uuo21fec73cigubg-a:5432/videomentor
+  jpa:
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        formate_sql: true
+        enable_lazy_load_no_trans: true
+    generate-ddl: true
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+  main:
+    allow-circular-references: true
+
+server:
+  error:
+    include-stacktrace: never
+api:
+  security:
+    token:
+      secret: ${JWT_SECRETE:DAHFAKHFSBDJFHPQI3RIHF90284879GHFJFWKFNSDFJG3974}
+      expiration: 36000000
+  url:
+    host: 'api-music-finder-musicdown.up.railway.app'
+    path:
+      playlist: playlists/
+      video: videos/
+  key: AIzaSyA9FKiDv61Srr4JNp56Ww7yiaHLZIB8rHc
+  cx: a1a672744220d425c
+playlist:
+  id: PL3XiMCPOuJvnEpMJL2PpX7qo7JxXt9f32

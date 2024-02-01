@@ -19,8 +19,13 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RequestMapping("/classes")
 public class ClasseController implements AbstractController<ClasseDto> {
 
-  @Autowired
-  ClasseService classeService;
+  private ClasseService classeService;
+
+  public ClasseController(
+    br.com.videomentor.api.classe.controller.ClasseService classeService
+  ) {
+    this.classeService = classeService;
+  }
 
   @Override
   @PostMapping
