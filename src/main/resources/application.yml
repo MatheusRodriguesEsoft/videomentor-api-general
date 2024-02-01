@@ -6,8 +6,8 @@ spring:
   datasource:
     username: ${DATABASE_USERNAME}
     password: ${DATABASE_PASSWORD}
-    # url: jdbc:postgresql://dpg-cms0uuo21fec73cigubg-a:5432/videomentor
-    url: jdbc:postgresql://localhost:5432/videomentor
+    url: jdbc:postgresql://dpg-cms0uuo21fec73cigubg-a:5432/videomentor
+    # url: jdbc:postgresql://localhost:5432/videomentor
 
   jpa:
     show-sql: false
