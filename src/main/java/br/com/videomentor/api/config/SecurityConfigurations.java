@@ -144,7 +144,7 @@ public class SecurityConfigurations {
   public CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration configuration = new CorsConfiguration();
     configuration.setAllowedOrigins(
-      Arrays.asList("https://videomentor.onrender.com")
+      Arrays.asList("https://videomentor.onrender.com/")
     );
     configuration.addAllowedMethod("*");
     configuration.addAllowedHeader("*");
