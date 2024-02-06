@@ -1,5 +1,9 @@
 package br.com.videomentor.api.student.model;
 
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.UUID;
+
 import br.com.videomentor.api.classe.model.Classe;
 import br.com.videomentor.api.enumerations.StatusEnum;
 import br.com.videomentor.api.notification.orm.Notification;
@@ -9,9 +13,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.UUID;
 
 /**
  * Student.
@@ -40,7 +41,8 @@ public class Student extends User {
     @NotBlank String nmUser,
     @NotBlank String username,
     @NotBlank String password,
-    String image,
+    String imageUrl,
+    String imageName,
     List<Role> roles,
     List<Notification> notifications,
     StatusEnum stUser,
@@ -52,7 +54,8 @@ public class Student extends User {
       nmUser,
       username,
       password,
-      image,
+      imageUrl,
+      imageName,
       roles,
       notifications,
       stUser,

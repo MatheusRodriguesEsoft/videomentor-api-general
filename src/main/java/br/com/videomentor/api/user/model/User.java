@@ -5,7 +5,18 @@ import br.com.videomentor.api.enumerations.StatusPassword;
 import br.com.videomentor.api.notification.orm.Notification;
 import br.com.videomentor.api.role.model.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -43,8 +54,11 @@ public class User implements UserDetails {
   @Column(name = "temporary_password")
   private String temporaryPassword;
 
-  @Column(name = "image")
-  private String image;
+  @Column(name = "imageUrl")
+  private String imageUrl;
+
+  @Column(name = "imageName")
+  private String imageName;
 
   @Column(name = "stPassword")
   private StatusPassword stPassword = StatusPassword.PROVISORY;
@@ -152,12 +166,20 @@ public class User implements UserDetails {
     this.temporaryPassword = temporaryPassword;
   }
 
-  public String getImage() {
-    return image;
+  public String getImageUrl() {
+    return imageUrl;
   }
 
-  public void setImage(String image) {
-    this.image = image;
+  public void setImageUrl(String imageUrl) {
+    this.imageUrl = imageUrl;
+  }
+
+  public String getImageName() {
+    return imageName;
+  }
+
+  public void setImageName(String imageName) {
+    this.imageName = imageName;
   }
 
   public List<Role> getRoles() {
@@ -205,7 +227,8 @@ public class User implements UserDetails {
     @NotBlank String nmUser,
     @NotBlank String username,
     @NotBlank String password,
-    String image,
+    String imageUrl,
+    String imageName,
     List<Role> roles,
     List<Notification> notifications,
     StatusEnum stUser,
@@ -215,7 +238,8 @@ public class User implements UserDetails {
     this.nmUser = nmUser;
     this.username = username;
     this.password = password;
-    this.image = image;
+    this.imageUrl = imageUrl;
+    this.imageName = imageName;
     this.roles = roles;
     this.notifications = notifications;
     this.stUser = stUser;

@@ -24,7 +24,9 @@ public class UserDto {
 
   private String username;
 
-  private String image;
+  private String imageUrl;
+
+  private String imageName;
 
   private StatusEnum stUser;
 
@@ -97,12 +99,20 @@ public class UserDto {
     this.temporaryPassword = temporaryPassword;
   }
 
-  public String getImage() {
-    return image;
+  public String getImageUrl() {
+    return imageUrl;
   }
 
-  public void setImage(String image) {
-    this.image = image;
+  public void setImageUrl(String imageUrl) {
+    this.imageUrl = imageUrl;
+  }
+
+  public String getImageName() {
+    return imageName;
+  }
+
+  public void setImageName(String imageName) {
+    this.imageName = imageName;
   }
 
   public List<RoleDto> getRoles() {
@@ -127,7 +137,8 @@ public class UserDto {
     String username,
     StatusEnum stUser,
     String password,
-    String image,
+    String imageUrl,
+    String imageName,
     List<RoleDto> roles,
     List<NotificationDto> notifications,
     LocalDateTime createdDate
@@ -137,7 +148,8 @@ public class UserDto {
     this.username = username;
     this.stUser = stUser;
     this.password = password;
-    this.image = image;
+    this.imageUrl = imageUrl;
+    this.imageName = imageName
     this.roles = roles;
     this.notifications = notifications;
     this.createdDate = createdDate;

@@ -46,7 +46,8 @@ public class TeacherDto extends UserDto {
     String username,
     StatusEnum stUser,
     String password,
-    String avatar,
+    String imageUrl,
+    String imageName
     List<RoleDto> roles,
     List<NotificationDto> notifications,
     LocalDateTime createdDate,
@@ -59,7 +60,8 @@ public class TeacherDto extends UserDto {
       username,
       stUser,
       password,
-      avatar,
+      imageUrl,
+      imageName,
       roles,
       notifications,
       createdDate

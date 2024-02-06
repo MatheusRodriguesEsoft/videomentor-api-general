@@ -1,15 +1,17 @@
 package br.com.videomentor.api.user.converter;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
+
 import br.com.videomentor.api.commons.AbstractConverter;
 import br.com.videomentor.api.notification.converter.NotificationConverter;
 import br.com.videomentor.api.role.converter.RoleConverter;
 import br.com.videomentor.api.user.dto.UserDto;
 import br.com.videomentor.api.user.model.User;
-import java.util.List;
-import java.util.stream.Collectors;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
 
 /**
  * UserConverter.
@@ -37,7 +39,8 @@ public class UserConverter implements AbstractConverter<User, UserDto> {
     }
     orm.setNmUser(dto.getNmUser());
     orm.setUsername(dto.getUsername());
-    orm.setImage(dto.getImage());
+    orm.setImageUrl(dto.getImageUrl());
+    orm.setImageName(dto.getImageName());
     if (dto.getPassword() != null) {
       orm.setPassword(passwordEncoder.encode(dto.getPassword()));
     }
@@ -56,7 +59,8 @@ public class UserConverter implements AbstractConverter<User, UserDto> {
     dto.setNmUser(orm.getNmUser());
     dto.setUsername(orm.getUsername());
     dto.setStUser(orm.getStUser());
-    dto.setImage(orm.getImage());
+    dto.setImageUrl(orm.getImageUrl());
+    dto.setImageName(orm.getImageName());
     dto.setRoles(roleConverter.ormListToDtoList(orm.getRoles()));
     dto.setNotifications(
       notificationConverter.ormListToDtoList(orm.getNotifications())

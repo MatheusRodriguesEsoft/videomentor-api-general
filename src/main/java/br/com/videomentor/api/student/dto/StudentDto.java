@@ -1,13 +1,14 @@
 package br.com.videomentor.api.student.dto;
 
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.UUID;
+
 import br.com.videomentor.api.classe.dto.ClasseDto;
 import br.com.videomentor.api.enumerations.StatusEnum;
 import br.com.videomentor.api.notification.dto.NotificationDto;
 import br.com.videomentor.api.role.dto.RoleDto;
 import br.com.videomentor.api.user.dto.UserDto;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.UUID;
 
 public class StudentDto extends UserDto {
 
@@ -37,7 +38,8 @@ public class StudentDto extends UserDto {
     String username,
     StatusEnum stUser,
     String password,
-    String avatar,
+    String imageUrl,
+    String imageName,
     List<RoleDto> roles,
     List<NotificationDto> notifications,
     LocalDateTime createdDate,
@@ -50,7 +52,8 @@ public class StudentDto extends UserDto {
       username,
       stUser,
       password,
-      avatar,
+      imageUrl,
+      imageName,
       roles,
       notifications,
       createdDate
