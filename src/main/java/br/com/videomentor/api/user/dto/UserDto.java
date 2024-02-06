@@ -1,13 +1,15 @@
 package br.com.videomentor.api.user.dto;
 
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.UUID;
+
+import org.hibernate.validator.constraints.Length;
+
 import br.com.videomentor.api.enumerations.StatusEnum;
 import br.com.videomentor.api.notification.dto.NotificationDto;
 import br.com.videomentor.api.role.dto.RoleDto;
 import jakarta.validation.constraints.NotBlank;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.UUID;
-import org.hibernate.validator.constraints.Length;
 
 /**
  * UserDto.
@@ -149,7 +151,7 @@ public class UserDto {
     this.stUser = stUser;
     this.password = password;
     this.imageUrl = imageUrl;
-    this.imageName = imageName
+    this.imageName = imageName;
     this.roles = roles;
     this.notifications = notifications;
     this.createdDate = createdDate;
