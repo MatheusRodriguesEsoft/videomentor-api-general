@@ -27,20 +27,10 @@ public class SecurityConfigurations {
   @Autowired
   private JwtAuthenticationFilter jwtAuthenticationFilter;
 
-  private static final String[] AUTH_WHITELIST = {
-    "/api/v1/auth/**",
-    "/v3/api-docs/**",
-    "/v3/api-docs.yaml",
-    "/swagger-ui/**",
-    "/swagger-ui.html",
-  };
+  private static final String[] AUTH_WHITELIST = { "/api/v1/auth/**", "/v3/api-docs/**", "/v3/api-docs.yaml",
+      "/swagger-ui/**", "/swagger-ui.html", };
 
-  private static final String[] ALL_USERS = {
-    "ADMIN",
-    "USER",
-    "TEACHER",
-    "STUDENT",
-  };
+  private static final String[] ALL_USERS = { "ADMIN", "USER", "TEACHER", "STUDENT", };
 
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -50,102 +40,65 @@ public class SecurityConfigurations {
     http.cors(cors -> {
       cors.configurationSource(corsConfigurationSource());
     });
-    http.sessionManagement(management ->
-      management.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-    );
+    http.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
     http.authorizeHttpRequests(auth -> {
       auth.requestMatchers(AUTH_WHITELIST).permitAll();
       auth.requestMatchers("/").permitAll();
       auth.requestMatchers(HttpMethod.GET, "/users").permitAll();
       auth.requestMatchers("/auth/**").permitAll();
       auth.requestMatchers("/auth/login").permitAll();
+      auth.requestMatchers("/auth/login/teacher").permitAll();
+      auth.requestMatchers("/auth/login/student").permitAll();
       auth.requestMatchers("/auth/authenticate").permitAll();
 
-      //ROLES
-      auth
-        .requestMatchers(HttpMethod.GET, "/roles/**")
-        .hasAnyAuthority(ALL_USERS);
+      // ROLES
+      auth.requestMatchers(HttpMethod.GET, "/roles/**").hasAnyAuthority(ALL_USERS);
 
-      //REDEFINE PASSWORD
-      auth
-        .requestMatchers(HttpMethod.GET, "/auth/redefine-password/**")
-        .hasAnyAuthority(ALL_USERS);
+      // REDEFINE PASSWORD
+      auth.requestMatchers(HttpMethod.GET, "/auth/redefine-password/**").hasAnyAuthority(ALL_USERS);
 
-      //NOTIFICATIONS
-      auth
-        .requestMatchers(HttpMethod.GET, "/auth/notifications/**")
-        .hasAnyAuthority(ALL_USERS);
-      auth
-        .requestMatchers(HttpMethod.POST, "/auth/notifications/**")
-        .hasAuthority("ADMIN");
-      auth
-        .requestMatchers(HttpMethod.PUT, "/auth/notifications/**")
-        .hasAuthority("ADMIN");
-      auth
-        .requestMatchers(HttpMethod.PATCH, "/auth/notifications/**")
-        .hasAuthority("ADMIN");
-      auth
-        .requestMatchers(HttpMethod.DELETE, "/auth/notifications/**")
-        .hasAuthority("ADMIN");
+      // NOTIFICATIONS
+      auth.requestMatchers(HttpMethod.GET, "/auth/notifications/**").hasAnyAuthority(ALL_USERS);
+      auth.requestMatchers(HttpMethod.POST, "/auth/notifications/**").hasAuthority("ADMIN");
+      auth.requestMatchers(HttpMethod.PUT, "/auth/notifications/**").hasAuthority("ADMIN");
+      auth.requestMatchers(HttpMethod.PATCH, "/auth/notifications/**").hasAuthority("ADMIN");
+      auth.requestMatchers(HttpMethod.DELETE, "/auth/notifications/**").hasAuthority("ADMIN");
 
-      //USERS
-      auth
-        .requestMatchers(HttpMethod.GET, "/users/**")
-        .hasAnyAuthority(ALL_USERS);
+      // USERS
+      auth.requestMatchers(HttpMethod.GET, "/users/**").hasAnyAuthority(ALL_USERS);
       auth.requestMatchers(HttpMethod.POST, "/users/**").permitAll();
-      auth
-        .requestMatchers(HttpMethod.PUT, "/users/**")
-        .hasAnyAuthority(ALL_USERS);
-      auth
-        .requestMatchers(HttpMethod.PATCH, "/users/**")
-        .hasAnyAuthority(ALL_USERS);
-      auth
-        .requestMatchers(HttpMethod.DELETE, "/users/**")
-        .hasAuthority("ADMIN");
+      auth.requestMatchers(HttpMethod.PUT, "/users/**").hasAnyAuthority(ALL_USERS);
+      auth.requestMatchers(HttpMethod.PATCH, "/users/**").hasAnyAuthority(ALL_USERS);
+      auth.requestMatchers(HttpMethod.DELETE, "/users/**").hasAuthority("ADMIN");
 
-      //AREA-OF-KNOWLEDGE
-      auth
-        .requestMatchers(HttpMethod.GET, "/area-of-knowledge/**")
-        .hasAnyAuthority(ALL_USERS);
+      // AREA-OF-KNOWLEDGE
+      auth.requestMatchers(HttpMethod.GET, "/area-of-knowledge/**").hasAnyAuthority(ALL_USERS);
 
-      //SUBJECTS
-      auth
-        .requestMatchers(HttpMethod.GET, "/subjects/**")
-        .hasAnyAuthority(ALL_USERS);
-      auth
-        .requestMatchers(HttpMethod.POST, "/subjects/**")
-        .hasAuthority("ADMIN");
-      auth
-        .requestMatchers(HttpMethod.PUT, "/subjects/**")
-        .hasAuthority("ADMIN");
-      auth
-        .requestMatchers(HttpMethod.PATCH, "/subjects/**")
-        .hasAuthority("ADMIN");
-      auth
-        .requestMatchers(HttpMethod.DELETE, "/subjects/**")
-        .hasAuthority("ADMIN");
+      // SUBJECTS
+      auth.requestMatchers(HttpMethod.GET, "/subjects/**").hasAnyAuthority(ALL_USERS);
+      auth.requestMatchers(HttpMethod.POST, "/subjects/**").hasAuthority("ADMIN");
+      auth.requestMatchers(HttpMethod.PUT, "/subjects/**").hasAuthority("ADMIN");
+      auth.requestMatchers(HttpMethod.PATCH, "/subjects/**").hasAuthority("ADMIN");
+      auth.requestMatchers(HttpMethod.DELETE, "/subjects/**").hasAuthority("ADMIN");
 
-      //SERIE
-      auth
-        .requestMatchers(HttpMethod.GET, "/series/**")
-        .hasAnyAuthority(ALL_USERS);
+      // SERIE
+      auth.requestMatchers(HttpMethod.GET, "/series/**").hasAnyAuthority(ALL_USERS);
 
-      //ANYREQUESTS
+      // YOUTUBE
+      auth.requestMatchers("/youtube/**").hasAuthority("TEACHER");
+      ;
+
+      // ANYREQUESTS
       auth.anyRequest().authenticated();
     });
-    http.addFilterBefore(
-      jwtAuthenticationFilter,
-      UsernamePasswordAuthenticationFilter.class
-    );
+    http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
     return http.build();
   }
 
   @Bean
   public CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration configuration = new CorsConfiguration();
-    configuration.setAllowedOrigins(
-      Arrays.asList("https://videomentor.onrender.com/")
-    );
+    configuration.setAllowedOrigins(Arrays.asList("https://videomentor.onrender.com/"));
     configuration.addAllowedMethod("*");
     configuration.addAllowedHeader("*");
     configuration.setAllowCredentials(true);
@@ -161,9 +114,8 @@ public class SecurityConfigurations {
   }
 
   @Bean
-  public AuthenticationManager authenticationManager(
-    AuthenticationConfiguration authenticationConfiguration
-  ) throws Exception {
+  public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
+      throws Exception {
     return authenticationConfiguration.getAuthenticationManager();
   }
 

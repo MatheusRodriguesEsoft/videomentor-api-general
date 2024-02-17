@@ -1,5 +1,25 @@
 package br.com.videomentor.api.user.service;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
 import br.com.videomentor.api.auth.dto.AuthDto;
 import br.com.videomentor.api.auth.dto.ForgotPasswordDto;
 import br.com.videomentor.api.auth.dto.RdfPasswordDto;
@@ -18,24 +38,6 @@ import br.com.videomentor.api.user.converter.UserConverter;
 import br.com.videomentor.api.user.dto.UserDto;
 import br.com.videomentor.api.user.model.User;
 import br.com.videomentor.api.user.repository.UserRepository;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -89,7 +91,7 @@ public class UserService implements UserDetailsService {
     return page;
   }
 
-  public ResDto authenticate(AuthDto authDto) {
+  public ResDto authenticate(AuthDto authDto, String role) {
     try {
       Authentication authentication = authenticationManager.authenticate(
         new UsernamePasswordAuthenticationToken(
@@ -99,6 +101,10 @@ public class UserService implements UserDetailsService {
       );
       SecurityContextHolder.getContext().setAuthentication(authentication);
       User user = userRepository.findByUsername(authentication.getName());
+
+      user.getRoles().forEach(r -> System.out.println(r.getName()));
+
+
       List<String> rolesNames = new ArrayList<>();
       user.getRoles().forEach(r -> rolesNames.add(r.getName().toString()));
       String token = jwtUtilities.generateToken(user.getUsername());

@@ -1,16 +1,18 @@
 package br.com.videomentor.api.student.converter;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
+
 import br.com.videomentor.api.classe.converter.ClasseConverter;
 import br.com.videomentor.api.commons.AbstractConverter;
 import br.com.videomentor.api.notification.converter.NotificationConverter;
 import br.com.videomentor.api.role.converter.RoleConverter;
 import br.com.videomentor.api.student.dto.StudentDto;
 import br.com.videomentor.api.student.model.Student;
-import java.util.List;
-import java.util.stream.Collectors;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
 
 /**
  * StudentConverter.
@@ -19,8 +21,7 @@ import org.springframework.stereotype.Component;
  * @version 1.0
  */
 @Component
-public class StudentConverter
-  implements AbstractConverter<Student, StudentDto> {
+public class StudentConverter implements AbstractConverter<Student, StudentDto> {
 
   @Autowired
   private ClasseConverter classeConverter;
@@ -62,9 +63,7 @@ public class StudentConverter
     dto.setUsername(orm.getUsername());
     dto.setStUser(orm.getStUser());
     dto.setRoles(roleConverter.ormListToDtoList(orm.getRoles()));
-    dto.setNotifications(
-      notificationConverter.ormListToDtoList(orm.getNotifications())
-    );
+    dto.setNotifications(notificationConverter.ormListToDtoList(orm.getNotifications()));
     if (orm.getClass() != null) {
       dto.setIdClasse(orm.getClasse().getIdClasse());
     }
@@ -83,13 +82,15 @@ public class StudentConverter
 
   @Override
   public List<Student> dtoListToOrmList(List<StudentDto> dtoList) {
-    if (dtoList == null) return null;
+    if (dtoList == null)
+      return null;
     return dtoList.stream().map(this::dtoToOrm).collect(Collectors.toList());
   }
 
   @Override
   public List<StudentDto> ormListToDtoList(List<Student> ormList) {
-    if (ormList == null) return null;
+    if (ormList == null)
+      return null;
     return ormList.stream().map(this::ormToDto).collect(Collectors.toList());
   }
 }

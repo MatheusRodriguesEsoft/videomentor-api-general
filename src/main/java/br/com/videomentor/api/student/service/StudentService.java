@@ -27,23 +27,42 @@ import org.webjars.NotFoundException;
 @Service
 public class StudentService implements AbstractService<StudentDto> {
 
+  /**
+   *
+   */
   @Autowired
   private StudentConverter studentConverter;
 
+  /**
+   *
+   */
   @Autowired
   private StudentRepository studentRepository;
 
+  /**
+   *
+   */
   @Autowired
   private UserRepository userRepository;
 
+  /**
+   *
+   */
   @Autowired
   private RoleRepository roleRepository;
 
+  /**
+   *
+   */
   @Autowired
-  NotificationRepository notificationRepository;
+  private NotificationRepository notificationRepository;
 
+  /**
+   * @param studentDto
+   * @return StudentDto
+   */
   @Override
-  public StudentDto create(StudentDto studentDto) {
+  public StudentDto create(final StudentDto studentDto) {
     User existsUser = userRepository.findByUsername(studentDto.getUsername());
     Role role = roleRepository.findByName(RolesEnum.STUDENT);
 
@@ -53,9 +72,7 @@ public class StudentService implements AbstractService<StudentDto> {
     Student student = studentConverter.dtoToOrm(studentDto);
     Notification notification = new Notification();
     notification.setNmNotification("Redefinição de senha");
-    notification.setMessage(
-      "Para redefinir sua senha utilize a senha temporária enviado para seu email."
-    );
+    notification.setMessage("Para redefinir sua senha utilize a senha temporária enviado para seu email.");
     notification.setActions(0);
     notificationRepository.save(notification);
     student.setRoles(Collections.singletonList(role));
@@ -63,38 +80,33 @@ public class StudentService implements AbstractService<StudentDto> {
     return studentConverter.ormToDto(studentRepository.save(student));
   }
 
+  /**
+   * @param uuid
+   * @return StudentDto
+   */
   @Override
-  public StudentDto retrieveById(UUID uuid) {
-    Student student = studentRepository
-      .findById(uuid)
-      .orElseThrow(() -> new NotFoundException("Student not found"));
+  public StudentDto retrieveById(final UUID uuid) {
+    Student student = studentRepository.findById(uuid).orElseThrow(() -> new NotFoundException("Student not found"));
     return studentConverter.ormToDto(student);
   }
 
+  /**
+   * @param pageable
+   * @return Page<StudentDto>
+   */
   @Override
-  public Page<StudentDto> retrieveAll(Pageable pageable) {
-    List<Student> students = studentRepository
-      .findAll()
-      .stream()
-      .collect(Collectors.toList());
-    List<StudentDto> studentDtos = students
-      .stream()
-      .map(s -> studentConverter.ormToDto(s))
-      .collect(Collectors.toList());
-    Page<StudentDto> page = new PageImpl<StudentDto>(
-      studentDtos,
-      pageable,
-      students.size()
-    );
+  public Page<StudentDto> retrieveAll(final Pageable pageable) {
+    List<Student> students = studentRepository.findAll().stream().collect(Collectors.toList());
+    List<StudentDto> studentDtos = students.stream().map(s -> studentConverter.ormToDto(s))
+        .collect(Collectors.toList());
+    Page<StudentDto> page = new PageImpl<StudentDto>(studentDtos, pageable, students.size());
     return page;
   }
 
   @Override
-  public StudentDto update(StudentDto studentDto) {
+  public final StudentDto update(final StudentDto studentDto) {
     try {
-      Student student = studentRepository.getReferenceById(
-        studentDto.getIdUser()
-      );
+      Student student = studentRepository.getReferenceById(studentDto.getIdUser());
       studentRepository.save(studentConverter.dtoToOrm(studentDto, student));
       return studentConverter.ormToDto(student, studentDto);
     } catch (Exception e) {
@@ -104,10 +116,8 @@ public class StudentService implements AbstractService<StudentDto> {
   }
 
   @Override
-  public void delete(UUID uuid) {
-    Student student = studentRepository
-      .findById(uuid)
-      .orElseThrow(() -> new NotFoundException("Student not found"));
+  public final void delete(final UUID uuid) {
+    Student student = studentRepository.findById(uuid).orElseThrow(() -> new NotFoundException("Student not found"));
     studentRepository.deleteById(student.getIdUser());
   }
 }

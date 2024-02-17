@@ -4,13 +4,6 @@ import java.util.List;
 
 import br.com.videomentor.api.youtube.item.Item;
 
-/**
- * VideoYoutDto.
- * 
- * @author Matheus Rodrigues <matheusrodrigues@outlook.com.br>
- * @version 1.0
- * @since 12/12/2022
- */
 
 public class VideoYoutDto {
 
@@ -52,5 +45,6 @@ public class VideoYoutDto {
 
     public VideoYoutDto() {
     }
+
     
 }

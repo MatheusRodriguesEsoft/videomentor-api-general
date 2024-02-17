@@ -6,8 +6,8 @@ spring:
   datasource:
     username: matheus
     password: 3TFVyckeLybqds3fm6obXojR4jmZruuZ
-    url: jdbc:postgresql://dpg-cms0uuo21fec73cigubg-a:5432/videomentor
-    # url: jdbc:postgresql://localhost:5432/videomentor
+    # url: jdbc:postgresql://dpg-cms0uuo21fec73cigubg-a:5432/videomentor
+    url: jdbc:postgresql://localhost:5432/videomentor
 
   jpa:
     show-sql: false
@@ -31,7 +31,7 @@ api:
       secret: ${JWT_SECRETE:DAHFAKHFSBDJFHPQI3RIHF90284879GHFJFWKFNSDFJG3974}
       expiration: 36000000
   url:
-    host: 'api-music-finder-musicdown.up.railway.app'
+    host: 'api-video-finder.onrender.com'
     path:
       playlist: playlists/
       video: videos/

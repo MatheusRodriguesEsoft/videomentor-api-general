@@ -1,24 +1,29 @@
-package br.com.videomentor.api.video.dto;
+package br.com.videomentor.api.youtube.playlist.dto;
 
+import java.io.Serializable;
 import java.util.List;
 
 import br.com.videomentor.api.youtube.item.Item;
 
 /**
- * VideoYoutDto.
- * 
  * @author Matheus Rodrigues <matheusrodrigues@outlook.com.br>
  * @version 1.0
- * @since 12/12/2022
+ * @since 16/02/2024
  */
 
-public class VideoYoutDto {
+public class PlayListYoutDto implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     public String king;
 
     public String etag;
 
     public List<Item> items;
+
+    public static long getSerialversionuid() {
+        return serialVersionUID;
+    }
 
     public String getKing() {
         return king;
@@ -43,20 +48,14 @@ public class VideoYoutDto {
     public void setItems(List<Item> items) {
         this.items = items;
     }
-    
-    public VideoYoutDto(VideoYoutDto videoYoutDto) {
-        this.king = videoYoutDto.king;
-        this.etag = videoYoutDto.etag;
-        this.items = videoYoutDto.items;
-    }
 
-    public VideoYoutDto(String king, String etag, List<Item> items) {
+    public PlayListYoutDto(String king, String etag, List<Item> items) {
         this.king = king;
         this.etag = etag;
         this.items = items;
     }
 
-    public VideoYoutDto() {
+    public PlayListYoutDto() {
     }
 
 }

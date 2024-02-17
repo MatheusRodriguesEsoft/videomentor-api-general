@@ -7,39 +7,53 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.videomentor.api.video.dto.VideoYoutDto;
+import br.com.videomentor.api.youtube.playlist.dto.PlayListYoutDto;
+import br.com.videomentor.api.youtube.video.dto.VideoYoutDto;
 
 /**
- * VideoMentorService.
+ * MusicFinderService.
  *
  * @author Matheus Rodrigues <matheusrodrigues.dev@outlook.com>
  * @version 1.0
  */
 
- @Service
+@Service
 public class VideoMentorService {
 
-    @Value("${api.url.host}")
-    private String host;
+        @Value("${api.url.host}")
+        private String host;
 
-    @Value("${api.url.path.video}")
-    private String pathVideo;
+        @Value("${api.url.path.playlist}")
+        private String pathPlayList;
 
-    public VideoYoutDto getVideo(String id) {
+        @Value("${api.url.path.video}")
+        private String pathVideo;
 
-        RestTemplate restTemplate = new RestTemplate();
+        /**
+         * @param id
+         * @return PlayListDto
+         */
+        public PlayListYoutDto getPlayList(String id, Integer maxResults) {
 
-        UriComponents uriComponents = UriComponentsBuilder.newInstance()
-                .scheme("https")
-                .host(host)
-                .path(pathVideo + id)
-                .build();
+                RestTemplate restTemplate = new RestTemplate();
 
-        ResponseEntity<VideoYoutDto> responseEntity = restTemplate.getForEntity(uriComponents.toString(),
-                VideoYoutDto.class);
-        // List<String> titles = responseEntity.getBody().items.stream().map(p ->
-        // p.snippet.title).toList();
-        return responseEntity.getBody();
-    }
-    
+                UriComponents uriComponents = UriComponentsBuilder.newInstance().scheme("https").host(host)
+                                .path(pathPlayList + id).build();
+                ResponseEntity<PlayListYoutDto> responseEntity = restTemplate.getForEntity(uriComponents.toString(),
+                                PlayListYoutDto.class);
+                return responseEntity.getBody();
+        }
+
+        public VideoYoutDto getVideo(String id) {
+
+                RestTemplate restTemplate = new RestTemplate();
+
+                UriComponents uriComponents = UriComponentsBuilder.newInstance().scheme("https").host(host)
+                                .path(pathVideo + id).build();
+
+                ResponseEntity<VideoYoutDto> responseEntity = restTemplate.getForEntity(uriComponents.toString(),
+                                VideoYoutDto.class);
+                return responseEntity.getBody();
+        }
+
 }

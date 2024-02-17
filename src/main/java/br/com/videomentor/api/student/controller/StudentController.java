@@ -25,15 +25,9 @@ public class StudentController implements AbstractController<StudentDto> {
   @Override
   @PostMapping
   @Transactional
-  public ResponseEntity<StudentDto> create(
-    @RequestBody @Valid StudentDto studentDto,
-    UriComponentsBuilder uriComponentsBuilder
-  ) {
+  public ResponseEntity<StudentDto> create(@RequestBody @Valid StudentDto studentDto,UriComponentsBuilder uriComponentsBuilder) {
     StudentDto student = studentService.create(studentDto);
-    URI uri = uriComponentsBuilder
-      .path("/students/{id}")
-      .buildAndExpand(student.getIdUser())
-      .toUri();
+    URI uri = uriComponentsBuilder.path("/students/{id}").buildAndExpand(student.getIdUser()).toUri();
     return ResponseEntity.created(uri).body(student);
   }
 
@@ -46,15 +40,14 @@ public class StudentController implements AbstractController<StudentDto> {
   @Override
   @GetMapping
   public ResponseEntity<Page<StudentDto>> retrieveAll(
-    @PageableDefault(size = 25, sort = { "nmStudent" }) Pageable pageable
-  ) {
+    @PageableDefault(size = 25, sort = { "nmStudent" }) Pageable pageable) {
     return ResponseEntity.ok(studentService.retrieveAll(pageable));
   }
-
+    
   @Override
   @PutMapping
   @Transactional
-  public ResponseEntity<StudentDto> update(@RequestBody StudentDto studentDto) {
+  public ResponseEntity<StudentDto> update(@RequestBody StudentDto studentDto){
     return ResponseEntity.ok(studentService.update(studentDto));
   }
 

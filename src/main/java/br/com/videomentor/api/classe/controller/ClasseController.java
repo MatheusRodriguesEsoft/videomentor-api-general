@@ -6,7 +6,6 @@ import br.com.videomentor.api.commons.AbstractController;
 import jakarta.validation.Valid;
 import java.net.URI;
 import java.util.UUID;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -28,15 +27,9 @@ public class ClasseController implements AbstractController<ClasseDto> {
   @Override
   @PostMapping
   @Transactional
-  public ResponseEntity<ClasseDto> create(
-    @RequestBody @Valid ClasseDto classeDto,
-    UriComponentsBuilder uriComponentsBuilder
-  ) {
+  public ResponseEntity<ClasseDto> create(@RequestBody @Valid ClasseDto classeDto,UriComponentsBuilder uriComponentsBuilder) {
     ClasseDto classe = classeService.create(classeDto);
-    URI uri = uriComponentsBuilder
-      .path("/classes/{id}")
-      .buildAndExpand(classe.getIdClasse())
-      .toUri();
+    URI uri = uriComponentsBuilder.path("/classes/{id}").buildAndExpand(classe.getIdClasse()).toUri();
     return ResponseEntity.created(uri).body(classe);
   }
 
@@ -49,8 +42,7 @@ public class ClasseController implements AbstractController<ClasseDto> {
   @Override
   @GetMapping
   public ResponseEntity<Page<ClasseDto>> retrieveAll(
-    @PageableDefault(size = 25, sort = { "nmClasse" }) Pageable pageable
-  ) {
+    @PageableDefault(size = 25, sort = { "nmClasse" }) Pageable pageable) {
     return ResponseEntity.ok(classeService.retrieveAll(pageable));
   }
 
