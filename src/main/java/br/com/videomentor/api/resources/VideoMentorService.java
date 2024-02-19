@@ -8,7 +8,7 @@ import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.videomentor.api.youtube.playlist.dto.PlayListYoutDto;
-import br.com.videomentor.api.youtube.video.dto.VideoYoutDto;
+import br.com.videomentor.api.youtube.video.dto.VideoDto;
 
 /**
  * MusicFinderService.
@@ -44,15 +44,15 @@ public class VideoMentorService {
                 return responseEntity.getBody();
         }
 
-        public VideoYoutDto getVideo(String id) {
+        public VideoDto getVideo(String id) {
 
                 RestTemplate restTemplate = new RestTemplate();
 
                 UriComponents uriComponents = UriComponentsBuilder.newInstance().scheme("https").host(host)
                                 .path(pathVideo + id).build();
 
-                ResponseEntity<VideoYoutDto> responseEntity = restTemplate.getForEntity(uriComponents.toString(),
-                                VideoYoutDto.class);
+                ResponseEntity<VideoDto> responseEntity = restTemplate.getForEntity(uriComponents.toString(),
+                                VideoDto.class);
                 return responseEntity.getBody();
         }
 

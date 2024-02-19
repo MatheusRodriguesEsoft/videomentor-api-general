@@ -4,8 +4,7 @@ import java.util.List;
 
 import br.com.videomentor.api.youtube.item.Item;
 
-
-public class VideoYoutDto {
+public class VideoDto {
 
     public String king;
 
@@ -37,14 +36,13 @@ public class VideoYoutDto {
         this.items = items;
     }
 
-    public VideoYoutDto(String king, String etag, List<Item> items) {
+    public VideoDto(String king, String etag, List<Item> items) {
         this.king = king;
         this.etag = etag;
         this.items = items;
     }
 
-    public VideoYoutDto() {
+    public VideoDto() {
     }
 
-    
 }

@@ -29,6 +29,7 @@ import br.com.videomentor.api.enumerations.RolesEnum;
 import br.com.videomentor.api.enumerations.StatusEnum;
 import br.com.videomentor.api.enumerations.StatusPassword;
 import br.com.videomentor.api.exceptions.AuthenticationException;
+import br.com.videomentor.api.exceptions.HandleRuntimeException;
 import br.com.videomentor.api.exceptions.NotFoundException;
 import br.com.videomentor.api.notification.orm.Notification;
 import br.com.videomentor.api.notification.repository.NotificationRepository;
@@ -64,8 +65,7 @@ public class UserService implements UserDetailsService {
   NotificationRepository notificationRepository;
 
   @Override
-  public UserDetails loadUserByUsername(String username)
-    throws UsernameNotFoundException {
+  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     return userRepository.findByUsername(username);
   }
 
@@ -75,44 +75,31 @@ public class UserService implements UserDetailsService {
   }
 
   public Page<UserDto> findByName(String nmUser, Pageable pageable) {
-    List<User> users = userRepository
-      .findByNmUserContainingIgnoreCase(nmUser)
-      .stream()
-      .collect(Collectors.toList());
-    List<UserDto> usersDtos = users
-      .stream()
-      .map(a -> userConverter.ormToDto(a))
-      .collect(Collectors.toList());
-    Page<UserDto> page = new PageImpl<UserDto>(
-      usersDtos,
-      pageable,
-      usersDtos.size()
-    );
+    List<User> users = userRepository.findByNmUserContainingIgnoreCase(nmUser).stream().collect(Collectors.toList());
+    List<UserDto> usersDtos = users.stream().map(a -> userConverter.ormToDto(a)).collect(Collectors.toList());
+    Page<UserDto> page = new PageImpl<UserDto>(usersDtos, pageable, usersDtos.size());
     return page;
   }
 
   public ResDto authenticate(AuthDto authDto, String role) {
     try {
-      Authentication authentication = authenticationManager.authenticate(
-        new UsernamePasswordAuthenticationToken(
-          authDto.getUsername(),
-          authDto.getPassword()
-        )
-      );
+      Authentication authentication = authenticationManager
+          .authenticate(new UsernamePasswordAuthenticationToken(authDto.getUsername(), authDto.getPassword()));
       SecurityContextHolder.getContext().setAuthentication(authentication);
       User user = userRepository.findByUsername(authentication.getName());
 
-      user.getRoles().forEach(r -> System.out.println(r.getName()));
+      var roleUser = user.getRoles().get(0);
 
+      if (roleUser.getName().toString() != "ADMIN" & roleUser.getName().toString() != role) {
+        throw new HandleRuntimeException("Usuário inválido");
+      }
 
       List<String> rolesNames = new ArrayList<>();
       user.getRoles().forEach(r -> rolesNames.add(r.getName().toString()));
       String token = jwtUtilities.generateToken(user.getUsername());
       return new ResDto(token, userConverter.ormToDto(user));
     } catch (Exception ex) {
-      throw new AuthenticationException(
-        "Usuário não registrado ou senha incorreta"
-      );
+      throw new AuthenticationException("Usuário inválido ou senha incorreta");
     }
   }
 
@@ -120,19 +107,10 @@ public class UserService implements UserDetailsService {
     User user = userRepository.getReferenceById(rdfPasswordDto.getIdUser());
     String senhaTemporariaNaoEncriptada = rdfPasswordDto.getTemporaryPassword();
     String senhaEncriptadaDoBanco = user.getPassword();
-    if (
-      !rdfPasswordDto.getPassword().equals(rdfPasswordDto.getConfirmPassword())
-    ) {
-      throw new AuthenticationException(
-        "Senha e Confirmar Senha devem ser iguais"
-      );
+    if (!rdfPasswordDto.getPassword().equals(rdfPasswordDto.getConfirmPassword())) {
+      throw new AuthenticationException("Senha e Confirmar Senha devem ser iguais");
     }
-    if (
-      passwordEncoder.matches(
-        senhaTemporariaNaoEncriptada,
-        senhaEncriptadaDoBanco
-      )
-    ) {
+    if (passwordEncoder.matches(senhaTemporariaNaoEncriptada, senhaEncriptadaDoBanco)) {
       user.setPassword(passwordEncoder.encode(rdfPasswordDto.getPassword()));
       user.setTemporaryPassword(null);
       user.setStPassword(StatusPassword.CONFIRMED);
@@ -171,9 +149,7 @@ public class UserService implements UserDetailsService {
     User user = userConverter.dtoToOrm(userDto);
     Notification notification = new Notification();
     notification.setNmNotification("Redefinição de senha");
-    notification.setMessage(
-      "Para redefinir sua senha utilize a senha temporária enviado para seu email."
-    );
+    notification.setMessage("Para redefinir sua senha utilize a senha temporária enviado para seu email.");
     notification.setActions(0);
     notificationRepository.save(notification);
     user.setRoles(Collections.singletonList(role));
@@ -182,17 +158,13 @@ public class UserService implements UserDetailsService {
   }
 
   public UserDto retrieveById(UUID id) {
-    User user = userRepository
-      .findById(id)
-      .orElseThrow(() -> new NotFoundException("User not found."));
+    User user = userRepository.findById(id).orElseThrow(() -> new NotFoundException("User not found."));
     return userConverter.ormToDto(user);
   }
 
   public Page<UserDto> retrieveAll(Pageable pageable) {
     Page<User> userPage = userRepository.findAll(pageable);
-    List<UserDto> userDtoList = userConverter.ormListToDtoList(
-      userPage.getContent()
-    );
+    List<UserDto> userDtoList = userConverter.ormListToDtoList(userPage.getContent());
     return new PageImpl<>(userDtoList, pageable, userPage.getTotalElements());
   }
 
@@ -208,9 +180,7 @@ public class UserService implements UserDetailsService {
   }
 
   public void delete(UUID id) {
-    User user = userRepository
-      .findById(id)
-      .orElseThrow(() -> new NotFoundException("User not found"));
+    User user = userRepository.findById(id).orElseThrow(() -> new NotFoundException("User not found"));
     user.setStUser(StatusEnum.INACTIVE);
     userRepository.save(user);
   }

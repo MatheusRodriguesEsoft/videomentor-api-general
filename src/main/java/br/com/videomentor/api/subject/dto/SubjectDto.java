@@ -2,6 +2,8 @@ package br.com.videomentor.api.subject.dto;
 
 import br.com.videomentor.api.areaofknowledge.dto.AreaOfKnowledgeDto;
 import br.com.videomentor.api.enumerations.StatusEnum;
+import br.com.videomentor.api.videoaula.dto.VideoAulaDto;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -19,6 +21,8 @@ public class SubjectDto {
   private String nmSubject;
 
   private AreaOfKnowledgeDto areaOfKnowledge;
+
+  private List<VideoAulaDto> videoAulas;
 
   private StatusEnum stSubject;
 
@@ -54,17 +58,24 @@ public class SubjectDto {
     this.stSubject = stSubject;
   }
 
-  public SubjectDto(
-    UUID idSubject,
-    String nmSubject,
-    AreaOfKnowledgeDto areaOfKnowledge,
-    StatusEnum stSubject
-  ) {
+  public List<VideoAulaDto> getVideoAulas() {
+    return videoAulas;
+  }
+
+  public void setVideoAulas(List<VideoAulaDto> videoAulas) {
+    this.videoAulas = videoAulas;
+  }
+
+  public SubjectDto(UUID idSubject, String nmSubject, AreaOfKnowledgeDto areaOfKnowledge, List<VideoAulaDto> videoAulas,
+      StatusEnum stSubject) {
     this.idSubject = idSubject;
     this.nmSubject = nmSubject;
     this.areaOfKnowledge = areaOfKnowledge;
+    this.videoAulas = videoAulas;
     this.stSubject = stSubject;
   }
 
-  public SubjectDto() {}
+  public SubjectDto() {
+  }
+
 }

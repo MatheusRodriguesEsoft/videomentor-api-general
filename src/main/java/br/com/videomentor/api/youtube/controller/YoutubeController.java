@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.videomentor.api.videoaula.dto.MusicYoutDto;
 import br.com.videomentor.api.youtube.service.YoutubeService;
+import br.com.videomentor.api.youtube.video.dto.VideoYoutubeDto;
 
 /**
  * YoutubeController.
@@ -18,15 +18,14 @@ import br.com.videomentor.api.youtube.service.YoutubeService;
  */
 
 @RestController
-@RequestMapping("/youtube")
+@RequestMapping("/videoaulas")
 public class YoutubeController {
 
     @Autowired
     public YoutubeService youtubeService;
 
-
-    @GetMapping("/{id}")
-    public ResponseEntity<MusicYoutDto> findYoutById(@PathVariable String id) {
+    @GetMapping("youtube/{id}")
+    public ResponseEntity<VideoYoutubeDto> findYoutById(@PathVariable String id) {
         return ResponseEntity.ok(youtubeService.findById(id));
     }
 }

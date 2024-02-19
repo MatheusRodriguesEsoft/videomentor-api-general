@@ -4,6 +4,7 @@ import br.com.videomentor.api.enumerations.StatusEnum;
 import br.com.videomentor.api.serie.model.Serie;
 import br.com.videomentor.api.student.model.Student;
 import br.com.videomentor.api.teacher.model.Teacher;
+import br.com.videomentor.api.videoaula.model.VideoAula;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -39,15 +40,14 @@ public class Classe {
   private Serie serie;
 
   @ManyToMany
-  @JoinTable(
-    name = "classe_teacher",
-    joinColumns = @JoinColumn(name = "classe_id"),
-    inverseJoinColumns = @JoinColumn(name = "teacher_id")
-  )
+  @JoinTable(name = "classe_teacher", joinColumns = @JoinColumn(name = "classe_id"), inverseJoinColumns = @JoinColumn(name = "teacher_id"))
   private List<Teacher> teachers;
 
   @OneToMany(mappedBy = "classe")
   private List<Student> students;
+
+  @ManyToMany(mappedBy = "classes")
+  private List<VideoAula> videoAulas;
 
   private StatusEnum stClasse = StatusEnum.ACTIVE;
 
@@ -91,6 +91,14 @@ public class Classe {
     this.students = students;
   }
 
+  public List<VideoAula> getVideoAulas() {
+    return videoAulas;
+  }
+
+  public void setVideoAulas(List<VideoAula> videoAulas) {
+    this.videoAulas = videoAulas;
+  }
+
   public StatusEnum getStClasse() {
     return stClasse;
   }
@@ -99,21 +107,17 @@ public class Classe {
     this.stClasse = stClasse;
   }
 
-  public Classe(
-    UUID idClasse,
-    String nmClasse,
-    Serie serie,
-    List<Teacher> teachers,
-    List<Student> students,
-    StatusEnum stClasse
-  ) {
+  public Classe(UUID idClasse, String nmClasse, Serie serie, List<Teacher> teachers, List<Student> students,
+      List<VideoAula> videoAulas, StatusEnum stClasse) {
     this.idClasse = idClasse;
     this.nmClasse = nmClasse;
     this.serie = serie;
     this.teachers = teachers;
     this.students = students;
+    this.videoAulas = videoAulas;
     this.stClasse = stClasse;
   }
 
-  public Classe() {}
+  public Classe() {
+  }
 }

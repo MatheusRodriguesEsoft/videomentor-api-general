@@ -1,4 +1,4 @@
-package br.com.videomentor.api.videoaula.dto;
+package br.com.videomentor.api.youtube.video.dto;
 
 import java.util.stream.Stream;
 
@@ -7,15 +7,13 @@ import br.com.videomentor.api.youtube.item.Item;
 import br.com.videomentor.api.youtube.maxres.Maxres;
 import br.com.videomentor.api.youtube.medium.Medium;
 import br.com.videomentor.api.youtube.standard.Standard;
-import br.com.videomentor.api.youtube.video.dto.VideoYoutDto;
 
-public class MusicYoutDto {
+public class VideoYoutubeDto {
 
     private String id;
     private String title;
     private String thumbnails;
     private String author;
-
 
     public String getId() {
         return id;
@@ -49,9 +47,8 @@ public class MusicYoutDto {
         this.author = author;
     }
 
-    
-    public MusicYoutDto(VideoYoutDto videoYoutDto) {
-        Stream<Item> itemStr = videoYoutDto.items.stream().map(i -> i);
+    public VideoYoutubeDto(VideoDto videoDto) {
+        Stream<Item> itemStr = videoDto.items.stream().map(i -> i);
         Item item = itemStr.findFirst().get();
         Maxres maxres = item.snippet.thumbnails.maxres;
         Medium medium = item.snippet.thumbnails.medium;
@@ -73,7 +70,7 @@ public class MusicYoutDto {
         }
     }
 
-    public MusicYoutDto() {
+    public VideoYoutubeDto() {
     }
-    
+
 }

@@ -4,6 +4,7 @@ import br.com.videomentor.api.enumerations.StatusEnum;
 import br.com.videomentor.api.serie.dto.SerieDto;
 import br.com.videomentor.api.student.dto.StudentDto;
 import br.com.videomentor.api.teacher.dto.TeacherDto;
+import br.com.videomentor.api.videoaula.dto.VideoAulaDto;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,6 +27,8 @@ public class ClasseDto {
   private List<TeacherDto> teachers;
 
   private List<StudentDto> students;
+
+  private List<VideoAulaDto> videoAulas;
 
   private StatusEnum stClasse;
 
@@ -69,6 +72,14 @@ public class ClasseDto {
     this.students = students;
   }
 
+  public List<VideoAulaDto> getVideoAulas() {
+    return videoAulas;
+  }
+
+  public void setVideoAulas(List<VideoAulaDto> videoAulas) {
+    this.videoAulas = videoAulas;
+  }
+
   public StatusEnum getStClasse() {
     return stClasse;
   }
@@ -77,21 +88,18 @@ public class ClasseDto {
     this.stClasse = stClasse;
   }
 
-  public ClasseDto(
-    UUID idClasse,
-    String nmClasse,
-    SerieDto serie,
-    List<TeacherDto> teachers,
-    List<StudentDto> students,
-    StatusEnum stClasse
-  ) {
+  public ClasseDto(UUID idClasse, String nmClasse, SerieDto serie, List<TeacherDto> teachers, List<StudentDto> students,
+      List<VideoAulaDto> videoAulas, StatusEnum stClasse) {
     this.idClasse = idClasse;
     this.nmClasse = nmClasse;
     this.serie = serie;
     this.teachers = teachers;
     this.students = students;
+    this.videoAulas = videoAulas;
     this.stClasse = stClasse;
   }
 
-  public ClasseDto() {}
+  public ClasseDto() {
+  }
+
 }

@@ -81,12 +81,15 @@ public class SecurityConfigurations {
       auth.requestMatchers(HttpMethod.PATCH, "/subjects/**").hasAuthority("ADMIN");
       auth.requestMatchers(HttpMethod.DELETE, "/subjects/**").hasAuthority("ADMIN");
 
+      // VIDEOAULAS
+      auth.requestMatchers(HttpMethod.GET, "/videoaulas/**").hasAnyAuthority(ALL_USERS);
+      auth.requestMatchers(HttpMethod.POST, "/videoaulas/**").hasAuthority("TEACHER");
+      auth.requestMatchers(HttpMethod.PUT, "/videoaulas/**").hasAuthority("TEACHER");
+      auth.requestMatchers(HttpMethod.PATCH, "/videoaulas/**").hasAuthority("TEACHER");
+      auth.requestMatchers(HttpMethod.DELETE, "/videoaulas/**").hasAuthority("TEACHER");
+
       // SERIE
       auth.requestMatchers(HttpMethod.GET, "/series/**").hasAnyAuthority(ALL_USERS);
-
-      // YOUTUBE
-      auth.requestMatchers("/youtube/**").hasAuthority("TEACHER");
-      ;
 
       // ANYREQUESTS
       auth.anyRequest().authenticated();
