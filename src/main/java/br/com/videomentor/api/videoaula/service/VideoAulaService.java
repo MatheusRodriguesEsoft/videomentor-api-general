@@ -1,7 +1,9 @@
 package br.com.videomentor.api.videoaula.service;
 
+import br.com.videomentor.api.classe.model.Classe;
 import br.com.videomentor.api.commons.AbstractService;
 import br.com.videomentor.api.exceptions.HandleRuntimeException;
+import br.com.videomentor.api.module.model.Module;
 import br.com.videomentor.api.videoaula.converter.VideoAulaConverter;
 import br.com.videomentor.api.videoaula.dto.VideoAulaDto;
 import br.com.videomentor.api.videoaula.model.VideoAula;
@@ -50,6 +52,16 @@ public class VideoAulaService implements AbstractService<VideoAulaDto> {
         .collect(Collectors.toList());
     Page<VideoAulaDto> page = new PageImpl<VideoAulaDto>(videoAulaDtos, pageable, videoAulas.size());
     return page;
+  }
+
+  public List<VideoAulaDto> retrieveByClasse(Classe classe) {
+    List<VideoAula> videoAulas = videoAulaRepository.findByClasses(classe);
+    return videoAulas.stream().map(videoAulaConverter::ormToDto).collect(Collectors.toList());
+  }
+
+  public List<VideoAulaDto> retrieveByModule(Module module) {
+    List<VideoAula> videoAulas = videoAulaRepository.findByModule(module);
+    return videoAulas.stream().map(videoAulaConverter::ormToDto).collect(Collectors.toList());
   }
 
   @Override

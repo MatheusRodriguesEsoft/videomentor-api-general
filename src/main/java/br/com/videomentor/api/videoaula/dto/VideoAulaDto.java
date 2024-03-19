@@ -3,6 +3,8 @@ package br.com.videomentor.api.videoaula.dto;
 import br.com.videomentor.api.classe.dto.ClasseDto;
 import br.com.videomentor.api.enumerations.StatusEnum;
 import br.com.videomentor.api.subject.dto.SubjectDto;
+import br.com.videomentor.api.module.dto.ModuleDto;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -29,6 +31,8 @@ public class VideoAulaDto {
     private List<ClasseDto> classes;
 
     private SubjectDto subject;
+
+    private ModuleDto module;
 
     private StatusEnum stVideoaula;
 
@@ -96,6 +100,14 @@ public class VideoAulaDto {
         this.subject = subject;
     }
 
+    public ModuleDto getModule() {
+        return module;
+    }
+
+    public void setModule(ModuleDto module) {
+        this.module = module;
+    }
+
     public StatusEnum getStVideoaula() {
         return stVideoaula;
     }
@@ -105,7 +117,7 @@ public class VideoAulaDto {
     }
 
     public VideoAulaDto(UUID idVideoaula, UUID idTeacher, String videoId, String videoTitle, String videoThumbnails,
-            String videoAuthor, List<ClasseDto> classes, SubjectDto subject, StatusEnum stVideoaula) {
+            String videoAuthor, List<ClasseDto> classes, SubjectDto subject, ModuleDto module, StatusEnum stVideoaula) {
         this.idVideoaula = idVideoaula;
         this.idTeacher = idTeacher;
         this.videoId = videoId;
@@ -114,6 +126,7 @@ public class VideoAulaDto {
         this.videoAuthor = videoAuthor;
         this.classes = classes;
         this.subject = subject;
+        this.module = module;
         this.stVideoaula = stVideoaula;
     }
 

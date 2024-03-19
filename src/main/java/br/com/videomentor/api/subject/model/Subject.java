@@ -33,6 +33,10 @@ public class Subject {
 
   private String nmSubject;
 
+  private String imageUrl;
+
+  private String imageName;
+
   @ManyToOne
   @JoinColumn(name = "area_of_knowledge_id")
   private AreaOfKnowledge areaOfKnowledge;
@@ -59,6 +63,22 @@ public class Subject {
 
   public void setNmSubject(String nmSubject) {
     this.nmSubject = nmSubject;
+  }
+
+  public String getImageUrl() {
+    return imageUrl;
+  }
+
+  public void setImageUrl(String imageUrl) {
+    this.imageUrl = imageUrl;
+  }
+
+  public String getImageName() {
+    return imageName;
+  }
+
+  public void setImageName(String imageName) {
+    this.imageName = imageName;
   }
 
   public AreaOfKnowledge getAreaOfKnowledge() {
@@ -93,10 +113,12 @@ public class Subject {
     this.stSubject = stSubject;
   }
 
-  public Subject(UUID idSubject, String nmSubject, AreaOfKnowledge areaOfKnowledge, List<Teacher> teachers,
-      List<VideoAula> videoAulas, StatusEnum stSubject) {
+  public Subject(UUID idSubject, String nmSubject, String imageUrl, String imageName, AreaOfKnowledge areaOfKnowledge,
+      List<Teacher> teachers, List<VideoAula> videoAulas, StatusEnum stSubject) {
     this.idSubject = idSubject;
     this.nmSubject = nmSubject;
+    this.imageUrl = imageUrl;
+    this.imageName = imageName;
     this.areaOfKnowledge = areaOfKnowledge;
     this.teachers = teachers;
     this.videoAulas = videoAulas;
@@ -106,5 +128,4 @@ public class Subject {
   public Subject() {
   }
 
-  
 }

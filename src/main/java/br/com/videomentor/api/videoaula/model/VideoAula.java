@@ -3,6 +3,8 @@ package br.com.videomentor.api.videoaula.model;
 import br.com.videomentor.api.classe.model.Classe;
 import br.com.videomentor.api.enumerations.StatusEnum;
 import br.com.videomentor.api.subject.model.Subject;
+import br.com.videomentor.api.module.model.Module;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
@@ -48,6 +50,10 @@ public class VideoAula {
     @ManyToOne
     @JoinColumn(name = "subject_id")
     private Subject subject;
+
+    @ManyToOne
+    @JoinColumn(name = "module_id")
+    private Module module;
 
     private StatusEnum stVideoaula = StatusEnum.ACTIVE;
 
@@ -115,6 +121,14 @@ public class VideoAula {
         this.subject = subject;
     }
 
+    public Module getModule() {
+        return module;
+    }
+
+    public void setModule(Module module) {
+        this.module = module;
+    }
+
     public StatusEnum getStVideoaula() {
         return stVideoaula;
     }
@@ -124,7 +138,7 @@ public class VideoAula {
     }
 
     public VideoAula(UUID idVideoaula, UUID idTeacher, String videoId, String videoTitle, String videoThumbnails,
-            String videoAuthor, List<Classe> classes, Subject subject, StatusEnum stVideoaula) {
+            String videoAuthor, List<Classe> classes, Subject subject, Module module, StatusEnum stVideoaula) {
         this.idVideoaula = idVideoaula;
         this.idTeacher = idTeacher;
         this.videoId = videoId;
@@ -133,6 +147,7 @@ public class VideoAula {
         this.videoAuthor = videoAuthor;
         this.classes = classes;
         this.subject = subject;
+        this.module = module;
         this.stVideoaula = stVideoaula;
     }
 

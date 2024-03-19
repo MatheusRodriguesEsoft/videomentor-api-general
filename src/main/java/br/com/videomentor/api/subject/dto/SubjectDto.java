@@ -20,6 +20,10 @@ public class SubjectDto {
 
   private String nmSubject;
 
+  private String imageUrl;
+
+  private String imageName;
+
   private AreaOfKnowledgeDto areaOfKnowledge;
 
   private List<VideoAulaDto> videoAulas;
@@ -40,6 +44,22 @@ public class SubjectDto {
 
   public void setNmSubject(String nmSubject) {
     this.nmSubject = nmSubject;
+  }
+
+  public String getImageUrl() {
+    return imageUrl;
+  }
+
+  public void setImageUrl(String imageUrl) {
+    this.imageUrl = imageUrl;
+  }
+
+  public String getImageName() {
+    return imageName;
+  }
+
+  public void setImageName(String imageName) {
+    this.imageName = imageName;
   }
 
   public AreaOfKnowledgeDto getAreaOfKnowledge() {
@@ -66,10 +86,12 @@ public class SubjectDto {
     this.videoAulas = videoAulas;
   }
 
-  public SubjectDto(UUID idSubject, String nmSubject, AreaOfKnowledgeDto areaOfKnowledge, List<VideoAulaDto> videoAulas,
-      StatusEnum stSubject) {
+  public SubjectDto(UUID idSubject, String nmSubject, String imageUrl, String imageName,
+      AreaOfKnowledgeDto areaOfKnowledge, List<VideoAulaDto> videoAulas, StatusEnum stSubject) {
     this.idSubject = idSubject;
     this.nmSubject = nmSubject;
+    this.imageUrl = imageUrl;
+    this.imageName = imageName;
     this.areaOfKnowledge = areaOfKnowledge;
     this.videoAulas = videoAulas;
     this.stSubject = stSubject;

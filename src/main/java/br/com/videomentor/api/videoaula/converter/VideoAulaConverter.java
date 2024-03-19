@@ -1,14 +1,13 @@
 package br.com.videomentor.api.videoaula.converter;
 
-import br.com.videomentor.api.areaofknowledge.converter.AreaOfKnowledgeConverter;
 import br.com.videomentor.api.classe.converter.ClasseConverter;
 import br.com.videomentor.api.commons.AbstractConverter;
+import br.com.videomentor.api.module.converter.ModuleConverter;
 import br.com.videomentor.api.subject.converter.SubjectConverter;
 import br.com.videomentor.api.videoaula.dto.VideoAulaDto;
 import br.com.videomentor.api.videoaula.model.VideoAula;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -24,9 +23,13 @@ public class VideoAulaConverter implements AbstractConverter<VideoAula, VideoAul
 
   private SubjectConverter subjectConverter;
 
-  public VideoAulaConverter(ClasseConverter classeConverter, SubjectConverter subjectConverter) {
+  private ModuleConverter moduleConverter;
+
+  public VideoAulaConverter(ClasseConverter classeConverter, SubjectConverter subjectConverter,
+      ModuleConverter moduleConverter) {
     this.classeConverter = classeConverter;
     this.subjectConverter = subjectConverter;
+    this.moduleConverter = moduleConverter;
   }
 
   @Override
@@ -41,6 +44,7 @@ public class VideoAulaConverter implements AbstractConverter<VideoAula, VideoAul
     orm.setStVideoaula(dto.getStVideoaula());
     orm.setClasses(classeConverter.dtoListToOrmList(dto.getClasses()));
     orm.setSubject(subjectConverter.dtoToOrm(dto.getSubject()));
+    orm.setModule(moduleConverter.dtoToOrm(dto.getModule()));
     return orm;
   }
 
@@ -60,6 +64,7 @@ public class VideoAulaConverter implements AbstractConverter<VideoAula, VideoAul
     dto.setStVideoaula(orm.getStVideoaula());
     dto.setClasses(classeConverter.ormListToDtoList(orm.getClasses()));
     dto.setSubject(subjectConverter.ormToDto(orm.getSubject()));
+    dto.setModule(moduleConverter.ormToDto(orm.getModule()));
     dto.setStVideoaula(orm.getStVideoaula());
     return dto;
   }

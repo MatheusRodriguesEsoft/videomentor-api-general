@@ -8,6 +8,8 @@ import br.com.videomentor.api.videoaula.dto.VideoAulaDto;
 import java.util.List;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * ClasseDto.
  *

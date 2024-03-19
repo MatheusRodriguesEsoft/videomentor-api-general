@@ -31,6 +31,7 @@ public class SecurityConfigurations {
       "/swagger-ui/**", "/swagger-ui.html", };
 
   private static final String[] ALL_USERS = { "ADMIN", "USER", "TEACHER", "STUDENT", };
+  private static final String[] SUPER_USERS = { "ADMIN", "TEACHER" };
 
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -76,10 +77,17 @@ public class SecurityConfigurations {
 
       // SUBJECTS
       auth.requestMatchers(HttpMethod.GET, "/subjects/**").hasAnyAuthority(ALL_USERS);
-      auth.requestMatchers(HttpMethod.POST, "/subjects/**").hasAuthority("ADMIN");
-      auth.requestMatchers(HttpMethod.PUT, "/subjects/**").hasAuthority("ADMIN");
-      auth.requestMatchers(HttpMethod.PATCH, "/subjects/**").hasAuthority("ADMIN");
-      auth.requestMatchers(HttpMethod.DELETE, "/subjects/**").hasAuthority("ADMIN");
+      auth.requestMatchers(HttpMethod.POST, "/subjects/**").hasAnyAuthority(SUPER_USERS);
+      auth.requestMatchers(HttpMethod.PUT, "/subjects/**").hasAnyAuthority(SUPER_USERS);
+      auth.requestMatchers(HttpMethod.PATCH, "/subjects/**").hasAnyAuthority(SUPER_USERS);
+      auth.requestMatchers(HttpMethod.DELETE, "/subjects/**").hasAnyAuthority(SUPER_USERS);
+
+      // MODULES
+      auth.requestMatchers(HttpMethod.GET, "/subjects/**").hasAnyAuthority(ALL_USERS);
+      auth.requestMatchers(HttpMethod.POST, "/subjects/**").hasAnyAuthority(SUPER_USERS);
+      auth.requestMatchers(HttpMethod.PUT, "/subjects/**").hasAnyAuthority(SUPER_USERS);
+      auth.requestMatchers(HttpMethod.PATCH, "/subjects/**").hasAnyAuthority(SUPER_USERS);
+      auth.requestMatchers(HttpMethod.DELETE, "/subjects/**").hasAnyAuthority(SUPER_USERS);
 
       // VIDEOAULAS
       auth.requestMatchers(HttpMethod.GET, "/videoaulas/**").hasAnyAuthority(ALL_USERS);
@@ -101,7 +109,7 @@ public class SecurityConfigurations {
   @Bean
   public CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration configuration = new CorsConfiguration();
-    configuration.setAllowedOrigins(Arrays.asList("https://videomentor.onrender.com/"));
+    configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000/"));
     configuration.addAllowedMethod("*");
     configuration.addAllowedHeader("*");
     configuration.setAllowCredentials(true);

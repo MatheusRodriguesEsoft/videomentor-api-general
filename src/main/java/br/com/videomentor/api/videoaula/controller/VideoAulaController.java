@@ -1,12 +1,18 @@
 package br.com.videomentor.api.videoaula.controller;
 
+import br.com.videomentor.api.classe.converter.ClasseConverter;
+import br.com.videomentor.api.classe.dto.ClasseDto;
+import br.com.videomentor.api.classe.service.ClasseService;
 import br.com.videomentor.api.commons.AbstractController;
+import br.com.videomentor.api.module.converter.ModuleConverter;
+import br.com.videomentor.api.module.dto.ModuleDto;
+import br.com.videomentor.api.module.service.ModuleService;
 import br.com.videomentor.api.videoaula.dto.VideoAulaDto;
 import br.com.videomentor.api.videoaula.service.VideoAulaService;
 import jakarta.validation.Valid;
 import java.net.URI;
+import java.util.List;
 import java.util.UUID;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -19,9 +25,30 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RequestMapping("/videoaulas")
 public class VideoAulaController implements AbstractController<VideoAulaDto> {
 
-  @Autowired
-  VideoAulaService videoAulaService;
+  private VideoAulaService videoAulaService;
 
+  private ClasseService classeService;
+
+  private ModuleService moduleService;
+
+  private ClasseConverter classeConverter;
+
+  private ModuleConverter moduleConverter;
+
+  public VideoAulaController(VideoAulaService videoAulaService, ClasseService classeService,
+      ModuleService moduleService, ClasseConverter classeConverter, ModuleConverter moduleConverter) {
+    this.classeService = classeService;
+    this.videoAulaService = videoAulaService;
+    this.moduleService = moduleService;
+    this.classeConverter = classeConverter;
+    this.moduleConverter = moduleConverter;
+  }
+
+  /**
+   * @param videoAulaDto
+   * @param uriComponentsBuilder
+   * @return ResponseEntity<VideoAulaDto>
+   */
   @Override
   @PostMapping
   @Transactional
@@ -43,6 +70,26 @@ public class VideoAulaController implements AbstractController<VideoAulaDto> {
   public ResponseEntity<Page<VideoAulaDto>> retrieveAll(
       @PageableDefault(size = 25, sort = { "videoTitle" }) Pageable pageable) {
     return ResponseEntity.ok(videoAulaService.retrieveAll(pageable));
+  }
+
+  @GetMapping("/classe/{idClasse}")
+  public ResponseEntity<List<VideoAulaDto>> retrieveByClasse(@PathVariable UUID idClasse) {
+    ClasseDto classe = classeService.retrieveById(idClasse);
+    if (classe == null) {
+      return ResponseEntity.notFound().build();
+    }
+    List<VideoAulaDto> videoAulas = videoAulaService.retrieveByClasse(classeConverter.dtoToOrm(classe));
+    return ResponseEntity.ok(videoAulas);
+  }
+
+  @GetMapping("/module/{idModule}")
+  public ResponseEntity<List<VideoAulaDto>> retrieveByModule(@PathVariable UUID idModule) {
+    ModuleDto module = moduleService.retrieveById(idModule);
+    if (module == null) {
+      return ResponseEntity.notFound().build();
+    }
+    List<VideoAulaDto> videoAulas = videoAulaService.retrieveByModule(moduleConverter.dtoToOrm(module));
+    return ResponseEntity.ok(videoAulas);
   }
 
   @Override
