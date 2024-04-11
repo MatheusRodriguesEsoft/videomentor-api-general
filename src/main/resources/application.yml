@@ -6,8 +6,8 @@ spring:
   datasource:
     username: matheus
     password: 3TFVyckeLybqds3fm6obXojR4jmZruuZ
-    # url: jdbc:postgresql://dpg-cms0uuo21fec73cigubg-a:5432/videomentor
-    url: jdbc:postgresql://localhost:5432/videomentor
+    url: jdbc:postgresql://dpg-cms0uuo21fec73cigubg-a:5432/videomentor
+    # url: jdbc:postgresql://localhost:5432/videomentor
 
   jpa:
     show-sql: false
