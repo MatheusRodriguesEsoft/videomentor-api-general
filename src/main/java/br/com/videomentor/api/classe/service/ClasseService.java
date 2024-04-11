@@ -38,36 +38,22 @@ public class ClasseService implements AbstractService<ClasseDto> {
 
   @Override
   public ClasseDto retrieveById(UUID uuid) {
-    Classe classe = classeRepository
-      .findById(uuid)
-      .orElseThrow(() -> new NotFoundException("Classe not found"));
+    Classe classe = classeRepository.findById(uuid).orElseThrow(() -> new NotFoundException("Classe not found"));
     return classeConverter.ormToDto(classe);
   }
 
   @Override
   public Page<ClasseDto> retrieveAll(Pageable pageable) {
-    List<Classe> classes = classeRepository
-      .findAll()
-      .stream()
-      .collect(Collectors.toList());
-    List<ClasseDto> classeDtos = classes
-      .stream()
-      .map(c -> classeConverter.ormToDto(c))
-      .collect(Collectors.toList());
-    Page<ClasseDto> page = new PageImpl<ClasseDto>(
-      classeDtos,
-      pageable,
-      classes.size()
-    );
+    List<Classe> classes = classeRepository.findAll().stream().collect(Collectors.toList());
+    List<ClasseDto> classeDtos = classes.stream().map(c -> classeConverter.ormToDto(c)).collect(Collectors.toList());
+    Page<ClasseDto> page = new PageImpl<ClasseDto>(classeDtos, pageable, classes.size());
     return page;
   }
 
   @Override
   public ClasseDto update(ClasseDto classeDto) {
     try {
-      Classe classe = classeRepository.getReferenceById(
-        classeDto.getIdClasse()
-      );
+      Classe classe = classeRepository.getReferenceById(classeDto.getIdClasse());
       classeRepository.save(classeConverter.dtoToOrm(classeDto, classe));
       return classeConverter.ormToDto(classe, classeDto);
     } catch (Exception e) {
@@ -79,13 +65,16 @@ public class ClasseService implements AbstractService<ClasseDto> {
   @Override
   public void delete(UUID uuid) {
     try {
-      Classe classe = classeRepository
-        .findById(uuid)
-        .orElseThrow(() -> new NotFoundException("Classe not found"));
+      Classe classe = classeRepository.findById(uuid).orElseThrow(() -> new NotFoundException("Classe not found"));
 
       classeRepository.deleteById(classe.getIdClasse());
     } catch (Exception e) {
       throw new HandleRuntimeException("Erro ao deletar a classe");
     }
   }
+
+  public long countAll() {
+    return classeRepository.count();
+  }
+
 }

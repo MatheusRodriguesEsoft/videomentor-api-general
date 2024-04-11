@@ -98,4 +98,9 @@ public class TeacherService implements AbstractService<TeacherDto> {
     Teacher teacher = teacherRepository.findById(uuid).orElseThrow(() -> new NotFoundException("Teacher not found"));
     teacherRepository.deleteById(teacher.getIdUser());
   }
+
+  public long countAll() {
+    return teacherRepository.count();
+  }
+
 }

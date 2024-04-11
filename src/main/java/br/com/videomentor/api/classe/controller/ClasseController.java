@@ -59,4 +59,11 @@ public class ClasseController implements AbstractController<ClasseDto> {
     classeService.delete(UUID.fromString(uuid));
     return ResponseEntity.noContent().build();
   }
+
+  @GetMapping("/count")
+  public ResponseEntity<Long> countAllClasses() {
+    long totalClasses = classeService.countAll();
+    return ResponseEntity.ok(totalClasses);
+  }
+
 }

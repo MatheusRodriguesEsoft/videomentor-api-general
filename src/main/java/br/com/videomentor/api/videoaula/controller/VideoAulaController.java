@@ -105,4 +105,11 @@ public class VideoAulaController implements AbstractController<VideoAulaDto> {
     videoAulaService.delete(UUID.fromString(uuid));
     return ResponseEntity.noContent().build();
   }
+
+  @GetMapping("/count")
+  public ResponseEntity<Long> countAllVideoAulas() {
+    long totalVideoAulas = videoAulaService.countAll();
+    return ResponseEntity.ok(totalVideoAulas);
+  }
+  
 }

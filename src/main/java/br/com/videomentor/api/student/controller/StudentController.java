@@ -78,4 +78,12 @@ public class StudentController implements AbstractController<StudentDto> {
     studentService.delete(UUID.fromString(uuid));
     return ResponseEntity.noContent().build();
   }
+
+
+  @GetMapping("/count")
+  public ResponseEntity<Long> countAllStudents() {
+    long totalStudents = studentService.countAll();
+    return ResponseEntity.ok(totalStudents);
+  }
+  
 }

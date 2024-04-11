@@ -126,4 +126,8 @@ public class StudentService implements AbstractService<StudentDto> {
     Student student = studentRepository.findById(uuid).orElseThrow(() -> new NotFoundException("Student not found"));
     studentRepository.deleteById(student.getIdUser());
   }
+
+  public long countAll() {
+    return studentRepository.count();
+  }
 }

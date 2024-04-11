@@ -101,4 +101,9 @@ public class VideoAulaService implements AbstractService<VideoAulaDto> {
       throw new HandleRuntimeException("Erro ao deletar a videoaula");
     }
   }
+
+  public long countAll() {
+    return videoAulaRepository.count();
+  }
+
 }

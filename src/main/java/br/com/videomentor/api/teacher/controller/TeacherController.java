@@ -26,15 +26,10 @@ public class TeacherController implements AbstractController<TeacherDto> {
   @Override
   @PostMapping
   @Transactional
-  public ResponseEntity<TeacherDto> create(
-    @RequestBody @Valid TeacherDto teacherDto,
-    UriComponentsBuilder uriComponentsBuilder
-  ) {
+  public ResponseEntity<TeacherDto> create(@RequestBody @Valid TeacherDto teacherDto,
+      UriComponentsBuilder uriComponentsBuilder) {
     TeacherDto teacher = teacherService.create(teacherDto);
-    URI uri = uriComponentsBuilder
-      .path("/teachers/{id}")
-      .buildAndExpand(teacher.getIdUser())
-      .toUri();
+    URI uri = uriComponentsBuilder.path("/teachers/{id}").buildAndExpand(teacher.getIdUser()).toUri();
     return ResponseEntity.created(uri).body(teacher);
   }
 
@@ -52,8 +47,7 @@ public class TeacherController implements AbstractController<TeacherDto> {
   @Override
   @GetMapping
   public ResponseEntity<Page<TeacherDto>> retrieveAll(
-    @PageableDefault(size = 25, sort = { "nmTeacher" }) Pageable pageable
-  ) {
+      @PageableDefault(size = 25, sort = { "nmTeacher" }) Pageable pageable) {
     return ResponseEntity.ok(teacherService.retrieveAll(pageable));
   }
 
@@ -69,5 +63,11 @@ public class TeacherController implements AbstractController<TeacherDto> {
   public ResponseEntity<TeacherDto> delete(@PathVariable String uuid) {
     teacherService.delete(UUID.fromString(uuid));
     return ResponseEntity.noContent().build();
+  }
+
+  @GetMapping("/count")
+  public ResponseEntity<Long> countAllTeachers() {
+    long totalTeachers = teacherService.countAll();
+    return ResponseEntity.ok(totalTeachers);
   }
 }
