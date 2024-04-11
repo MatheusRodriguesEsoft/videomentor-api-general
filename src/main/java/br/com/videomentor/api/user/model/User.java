@@ -1,7 +1,9 @@
 package br.com.videomentor.api.user.model;
 
+import br.com.videomentor.api.comment.model.Comment;
 import br.com.videomentor.api.enumerations.StatusEnum;
 import br.com.videomentor.api.enumerations.StatusPassword;
+import br.com.videomentor.api.message.model.Message;
 import br.com.videomentor.api.notification.orm.Notification;
 import br.com.videomentor.api.role.model.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -15,6 +17,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -65,21 +68,24 @@ public class User implements UserDetails {
 
   @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
   @JsonIgnore
-  @JoinTable(
-    name = "users_roles",
-    joinColumns = { @JoinColumn(name = "user_id") },
-    inverseJoinColumns = { @JoinColumn(name = "role_id") }
-  )
+  @JoinTable(name = "users_roles", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = {
+      @JoinColumn(name = "role_id") })
   List<Role> roles;
 
   @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
   @JsonIgnore
-  @JoinTable(
-    name = "users_notifications",
-    joinColumns = { @JoinColumn(name = "user_id") },
-    inverseJoinColumns = { @JoinColumn(name = "notification_id") }
-  )
+  @JoinTable(name = "users_notifications", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = {
+      @JoinColumn(name = "notification_id") })
   private List<Notification> notifications = new ArrayList<>();
+
+  @OneToMany(mappedBy = "sender")
+  private List<Message> sentMessages;
+
+  @OneToMany(mappedBy = "receiver")
+  private List<Message> receivedMessages;
+
+  @OneToMany(mappedBy = "user")
+  private List<Comment> comments;
 
   private StatusEnum stUser = StatusEnum.ACTIVE;
 
@@ -94,9 +100,7 @@ public class User implements UserDetails {
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
     List<GrantedAuthority> authorities = new ArrayList<>();
-    this.roles.forEach(role ->
-        authorities.add(new SimpleGrantedAuthority(role.getName().toString()))
-      );
+    this.roles.forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getName().toString())));
     return authorities;
   }
 
@@ -218,22 +222,37 @@ public class User implements UserDetails {
     return createdDate;
   }
 
+  public List<Message> getSentMessages() {
+    return sentMessages;
+  }
+
+  public void setSentMessages(List<Message> sentMessages) {
+    this.sentMessages = sentMessages;
+  }
+
+  public List<Message> getReceivedMessages() {
+    return receivedMessages;
+  }
+
+  public void setReceivedMessages(List<Message> receivedMessages) {
+    this.receivedMessages = receivedMessages;
+  }
+
+  public List<Comment> getComments() {
+    return comments;
+  }
+
+  public void setComments(List<Comment> comments) {
+    this.comments = comments;
+  }
+
   public void setCreatedDate(LocalDateTime createdDate) {
     this.createdDate = createdDate;
   }
 
-  public User(
-    UUID idUser,
-    @NotBlank String nmUser,
-    @NotBlank String username,
-    @NotBlank String password,
-    String imageUrl,
-    String imageName,
-    List<Role> roles,
-    List<Notification> notifications,
-    StatusEnum stUser,
-    LocalDateTime createdDate
-  ) {
+  public User(UUID idUser, @NotBlank String nmUser, @NotBlank String username, @NotBlank String password,
+      String imageUrl, String imageName, List<Role> roles, List<Notification> notifications, List<Comment> comments, StatusEnum stUser,
+      LocalDateTime createdDate) {
     this.idUser = idUser;
     this.nmUser = nmUser;
     this.username = username;
@@ -242,9 +261,11 @@ public class User implements UserDetails {
     this.imageName = imageName;
     this.roles = roles;
     this.notifications = notifications;
+    this.comments = comments;
     this.stUser = stUser;
     this.createdDate = createdDate;
   }
 
-  public User() {}
+  public User() {
+  }
 }

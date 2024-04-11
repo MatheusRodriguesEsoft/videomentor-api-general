@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import br.com.videomentor.api.classe.dto.ClasseDto;
+import br.com.videomentor.api.comment.dto.CommentDto;
 import br.com.videomentor.api.enumerations.StatusEnum;
 import br.com.videomentor.api.notification.dto.NotificationDto;
 import br.com.videomentor.api.role.dto.RoleDto;
@@ -41,32 +42,10 @@ public class TeacherDto extends UserDto {
     this.subjects = subjects;
   }
 
-  public TeacherDto(
-    UUID idUser,
-    String nmUser,
-    String username,
-    StatusEnum stUser,
-    String password,
-    String imageUrl,
-    String imageName,
-    List<RoleDto> roles,
-    List<NotificationDto> notifications,
-    LocalDateTime createdDate,
-    List<ClasseDto> classes,
-    List<SubjectDto> subjects
-  ) {
-    super(
-      idUser,
-      nmUser,
-      username,
-      stUser,
-      password,
-      imageUrl,
-      imageName,
-      roles,
-      notifications,
-      createdDate
-    );
+  public TeacherDto(UUID idUser, String nmUser, String username, StatusEnum stUser, String password, String imageUrl,
+      String imageName, List<RoleDto> roles, List<NotificationDto> notifications, List<CommentDto> comments,
+      LocalDateTime createdDate, List<ClasseDto> classes, List<SubjectDto> subjects) {
+    super(idUser, nmUser, username, stUser, password, imageUrl, imageName, roles, notifications, comments, createdDate);
     this.classes = classes;
     this.subjects = subjects;
   }
@@ -76,5 +55,6 @@ public class TeacherDto extends UserDto {
     this.subjects = subjects;
   }
 
-  public TeacherDto() {}
+  public TeacherDto() {
+  }
 }

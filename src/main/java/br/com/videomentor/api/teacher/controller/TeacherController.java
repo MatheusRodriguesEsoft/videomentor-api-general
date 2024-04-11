@@ -5,6 +5,7 @@ import br.com.videomentor.api.teacher.dto.TeacherDto;
 import br.com.videomentor.api.teacher.service.TeacherService;
 import jakarta.validation.Valid;
 import java.net.URI;
+import java.util.List;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -41,6 +42,11 @@ public class TeacherController implements AbstractController<TeacherDto> {
   @GetMapping("/{uuid}")
   public ResponseEntity<TeacherDto> retrieveById(@PathVariable UUID uuid) {
     return ResponseEntity.ok(teacherService.retrieveById(uuid));
+  }
+
+  @GetMapping("/subject/{uuid}")
+  public ResponseEntity<List<TeacherDto>> retrieveBySubjectsId(@PathVariable UUID uuid) {
+    return ResponseEntity.ok(teacherService.findBySubjectId(uuid));
   }
 
   @Override

@@ -65,12 +65,22 @@ public class SecurityConfigurations {
       auth.requestMatchers(HttpMethod.PATCH, "/auth/notifications/**").hasAuthority("ADMIN");
       auth.requestMatchers(HttpMethod.DELETE, "/auth/notifications/**").hasAuthority("ADMIN");
 
+      // COMMENTS
+      auth.requestMatchers(HttpMethod.GET, "/comments/**").hasAnyAuthority(ALL_USERS);
+      auth.requestMatchers(HttpMethod.POST, "/comments/**").hasAnyAuthority(ALL_USERS);
+      auth.requestMatchers(HttpMethod.PUT, "/comments/**").hasAnyAuthority(ALL_USERS);
+      auth.requestMatchers(HttpMethod.PATCH, "/comments/**").hasAnyAuthority(ALL_USERS);
+      auth.requestMatchers(HttpMethod.DELETE, "/comments/**").hasAnyAuthority(ALL_USERS);
+
       // USERS
       auth.requestMatchers(HttpMethod.GET, "/users/**").hasAnyAuthority(ALL_USERS);
       auth.requestMatchers(HttpMethod.POST, "/users/**").permitAll();
       auth.requestMatchers(HttpMethod.PUT, "/users/**").hasAnyAuthority(ALL_USERS);
       auth.requestMatchers(HttpMethod.PATCH, "/users/**").hasAnyAuthority(ALL_USERS);
       auth.requestMatchers(HttpMethod.DELETE, "/users/**").hasAuthority("ADMIN");
+
+      // TEACHERS
+      auth.requestMatchers(HttpMethod.GET, "/teachers/**").hasAnyAuthority(ALL_USERS);
 
       // AREA-OF-KNOWLEDGE
       auth.requestMatchers(HttpMethod.GET, "/area-of-knowledge/**").hasAnyAuthority(ALL_USERS);
@@ -92,7 +102,7 @@ public class SecurityConfigurations {
       // VIDEOAULAS
       auth.requestMatchers(HttpMethod.GET, "/videoaulas/**").hasAnyAuthority(ALL_USERS);
       auth.requestMatchers(HttpMethod.POST, "/videoaulas/**").hasAuthority("TEACHER");
-      auth.requestMatchers(HttpMethod.PUT, "/videoaulas/**").hasAuthority("TEACHER");
+      auth.requestMatchers(HttpMethod.PUT, "/videoaulas/**").hasAnyAuthority(ALL_USERS);
       auth.requestMatchers(HttpMethod.PATCH, "/videoaulas/**").hasAuthority("TEACHER");
       auth.requestMatchers(HttpMethod.DELETE, "/videoaulas/**").hasAuthority("TEACHER");
 
@@ -109,7 +119,7 @@ public class SecurityConfigurations {
   @Bean
   public CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration configuration = new CorsConfiguration();
-    configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000/"));
+    configuration.setAllowedOrigins(Arrays.asList("https://app-videomentor.onrender.com/"));
     configuration.addAllowedMethod("*");
     configuration.addAllowedHeader("*");
     configuration.setAllowCredentials(true);

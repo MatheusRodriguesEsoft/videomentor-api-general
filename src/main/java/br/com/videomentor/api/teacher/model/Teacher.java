@@ -1,6 +1,7 @@
 package br.com.videomentor.api.teacher.model;
 
 import br.com.videomentor.api.classe.model.Classe;
+import br.com.videomentor.api.comment.model.Comment;
 import br.com.videomentor.api.enumerations.StatusEnum;
 import br.com.videomentor.api.notification.orm.Notification;
 import br.com.videomentor.api.role.model.Role;
@@ -29,11 +30,7 @@ public class Teacher extends User {
   private List<Classe> classes;
 
   @ManyToMany
-  @JoinTable(
-    name = "teacher_subject",
-    joinColumns = @JoinColumn(name = "teacher_id"),
-    inverseJoinColumns = @JoinColumn(name = "subject_id")
-  )
+  @JoinTable(name = "teacher_subject", joinColumns = @JoinColumn(name = "teacher_id"), inverseJoinColumns = @JoinColumn(name = "subject_id"))
   private List<Subject> subjects;
 
   public List<Classe> getClasses() {
@@ -52,34 +49,10 @@ public class Teacher extends User {
     this.subjects = subjects;
   }
 
-  public Teacher() {}
-
-  public Teacher(
-    UUID idUser,
-    @NotBlank String nmUser,
-    @NotBlank String username,
-    @NotBlank String password,
-    String imageUrl,
-    String imageName,
-    List<Role> roles,
-    List<Notification> notifications,
-    StatusEnum stUser,
-    LocalDateTime createdDate,
-    List<Classe> classes,
-    List<Subject> subjects
-  ) {
-    super(
-      idUser,
-      nmUser,
-      username,
-      password,
-      imageUrl,
-      imageName,
-      roles,
-      notifications,
-      stUser,
-      createdDate
-    );
+  public Teacher(UUID idUser, @NotBlank String nmUser, @NotBlank String username, @NotBlank String password,
+      String imageUrl, String imageName, List<Role> roles, List<Notification> notifications, List<Comment> comments,
+      StatusEnum stUser, LocalDateTime createdDate, List<Classe> classes, List<Subject> subjects) {
+    super(idUser, nmUser, username, password, imageUrl, imageName, roles, notifications, comments, stUser, createdDate);
     this.classes = classes;
     this.subjects = subjects;
   }
@@ -88,4 +61,8 @@ public class Teacher extends User {
     this.classes = classes;
     this.subjects = subjects;
   }
+
+  public Teacher() {
+  }
+
 }

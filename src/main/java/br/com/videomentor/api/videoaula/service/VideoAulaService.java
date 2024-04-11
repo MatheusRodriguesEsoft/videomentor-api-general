@@ -1,6 +1,8 @@
 package br.com.videomentor.api.videoaula.service;
 
 import br.com.videomentor.api.classe.model.Classe;
+import br.com.videomentor.api.comment.converter.CommentConverter;
+import br.com.videomentor.api.comment.repository.CommentRepository;
 import br.com.videomentor.api.commons.AbstractService;
 import br.com.videomentor.api.exceptions.HandleRuntimeException;
 import br.com.videomentor.api.module.model.Module;
@@ -26,6 +28,12 @@ public class VideoAulaService implements AbstractService<VideoAulaDto> {
 
   @Autowired
   private VideoAulaRepository videoAulaRepository;
+
+  @Autowired
+  private CommentRepository commentRepository;
+
+  @Autowired
+  private CommentConverter commentConverter;
 
   @Override
   public VideoAulaDto create(VideoAulaDto videoAulaDto) {
@@ -68,6 +76,12 @@ public class VideoAulaService implements AbstractService<VideoAulaDto> {
   public VideoAulaDto update(VideoAulaDto videoAulaDto) {
     try {
       VideoAula videoAula = videoAulaRepository.getReferenceById(videoAulaDto.getIdVideoaula());
+      videoAulaDto.getComments().forEach(comment -> {
+        if (comment.getIdComment() == null) {
+          comment.setVideoAula(videoAulaConverter.ormToDto(videoAula));
+          commentRepository.save(commentConverter.dtoToOrm(comment));
+        }
+      });
       videoAulaRepository.save(videoAulaConverter.dtoToOrm(videoAulaDto, videoAula));
       return videoAulaConverter.ormToDto(videoAula, videoAulaDto);
     } catch (Exception e) {

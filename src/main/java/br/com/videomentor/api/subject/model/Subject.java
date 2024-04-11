@@ -2,6 +2,7 @@ package br.com.videomentor.api.subject.model;
 
 import br.com.videomentor.api.areaofknowledge.model.AreaOfKnowledge;
 import br.com.videomentor.api.enumerations.StatusEnum;
+import br.com.videomentor.api.message.model.Message;
 import br.com.videomentor.api.teacher.model.Teacher;
 import br.com.videomentor.api.videoaula.model.VideoAula;
 import jakarta.persistence.Entity;
@@ -46,6 +47,9 @@ public class Subject {
 
   @OneToMany(mappedBy = "subject")
   private List<VideoAula> videoAulas;
+
+  @OneToMany(mappedBy = "subject")
+  private List<Message> messages;
 
   private StatusEnum stSubject = StatusEnum.ACTIVE;
 
@@ -105,6 +109,14 @@ public class Subject {
     this.videoAulas = videoAulas;
   }
 
+  public List<Message> getMessages() {
+    return messages;
+  }
+
+  public void setMessages(List<Message> messages) {
+    this.messages = messages;
+  }
+
   public StatusEnum getStSubject() {
     return stSubject;
   }
@@ -114,7 +126,7 @@ public class Subject {
   }
 
   public Subject(UUID idSubject, String nmSubject, String imageUrl, String imageName, AreaOfKnowledge areaOfKnowledge,
-      List<Teacher> teachers, List<VideoAula> videoAulas, StatusEnum stSubject) {
+      List<Teacher> teachers, List<VideoAula> videoAulas, List<Message> messages, StatusEnum stSubject) {
     this.idSubject = idSubject;
     this.nmSubject = nmSubject;
     this.imageUrl = imageUrl;
@@ -122,6 +134,7 @@ public class Subject {
     this.areaOfKnowledge = areaOfKnowledge;
     this.teachers = teachers;
     this.videoAulas = videoAulas;
+    this.messages = messages;
     this.stSubject = stSubject;
   }
 

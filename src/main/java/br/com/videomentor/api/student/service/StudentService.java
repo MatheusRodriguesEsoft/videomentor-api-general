@@ -1,5 +1,6 @@
 package br.com.videomentor.api.student.service;
 
+import br.com.videomentor.api.classe.model.Classe;
 import br.com.videomentor.api.commons.AbstractService;
 import br.com.videomentor.api.enumerations.RolesEnum;
 import br.com.videomentor.api.exceptions.HandleRuntimeException;
@@ -101,6 +102,11 @@ public class StudentService implements AbstractService<StudentDto> {
         .collect(Collectors.toList());
     Page<StudentDto> page = new PageImpl<StudentDto>(studentDtos, pageable, students.size());
     return page;
+  }
+
+  public List<StudentDto> retrieveByClasse(Classe classe) {
+    List<Student> students = studentRepository.findByClasse(classe);
+    return students.stream().map(studentConverter::ormToDto).collect(Collectors.toList());
   }
 
   @Override

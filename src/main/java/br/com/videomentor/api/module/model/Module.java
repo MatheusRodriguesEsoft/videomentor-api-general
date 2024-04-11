@@ -1,9 +1,7 @@
 package br.com.videomentor.api.module.model;
 
-import br.com.videomentor.api.areaofknowledge.model.AreaOfKnowledge;
 import br.com.videomentor.api.enumerations.StatusEnum;
 import br.com.videomentor.api.subject.model.Subject;
-import br.com.videomentor.api.teacher.model.Teacher;
 import br.com.videomentor.api.videoaula.model.VideoAula;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -11,7 +9,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;

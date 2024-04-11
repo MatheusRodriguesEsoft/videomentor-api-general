@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import br.com.videomentor.api.classe.dto.ClasseDto;
+import br.com.videomentor.api.comment.dto.CommentDto;
 import br.com.videomentor.api.enumerations.StatusEnum;
 import br.com.videomentor.api.notification.dto.NotificationDto;
 import br.com.videomentor.api.role.dto.RoleDto;
@@ -42,6 +43,7 @@ public class StudentDto extends UserDto {
     String imageName,
     List<RoleDto> roles,
     List<NotificationDto> notifications,
+    List<CommentDto> comments,
     LocalDateTime createdDate,
     ClasseDto classe,
     UUID idClasse
@@ -56,6 +58,7 @@ public class StudentDto extends UserDto {
       imageName,
       roles,
       notifications,
+      comments,
       createdDate
     );
     this.classe = classe;

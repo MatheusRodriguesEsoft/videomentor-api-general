@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import br.com.videomentor.api.classe.model.Classe;
+import br.com.videomentor.api.comment.model.Comment;
 import br.com.videomentor.api.enumerations.StatusEnum;
 import br.com.videomentor.api.notification.orm.Notification;
 import br.com.videomentor.api.role.model.Role;
@@ -45,6 +46,7 @@ public class Student extends User {
     String imageName,
     List<Role> roles,
     List<Notification> notifications,
+    List<Comment> comments,
     StatusEnum stUser,
     LocalDateTime createdDate,
     Classe classe
@@ -58,6 +60,7 @@ public class Student extends User {
       imageName,
       roles,
       notifications,
+      comments,
       stUser,
       createdDate
     );

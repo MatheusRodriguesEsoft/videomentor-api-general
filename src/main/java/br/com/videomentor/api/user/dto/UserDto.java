@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import org.hibernate.validator.constraints.Length;
 
+import br.com.videomentor.api.comment.dto.CommentDto;
 import br.com.videomentor.api.enumerations.StatusEnum;
 import br.com.videomentor.api.notification.dto.NotificationDto;
 import br.com.videomentor.api.role.dto.RoleDto;
@@ -43,6 +44,8 @@ public class UserDto {
 
   private List<NotificationDto> notifications;
 
+  private List<CommentDto> comments;
+
   private LocalDateTime createdDate;
 
   public UUID getIdUser() {
@@ -79,6 +82,14 @@ public class UserDto {
 
   public List<NotificationDto> getNotifications() {
     return notifications;
+  }
+
+  public List<CommentDto> getComments() {
+    return comments;
+  }
+
+  public void setComments(List<CommentDto> comments) {
+    this.comments = comments;
   }
 
   public void setNotifications(List<NotificationDto> notifications) {
@@ -133,18 +144,8 @@ public class UserDto {
     this.createdDate = createdDate;
   }
 
-  public UserDto(
-    UUID idUser,
-    String nmUser,
-    String username,
-    StatusEnum stUser,
-    String password,
-    String imageUrl,
-    String imageName,
-    List<RoleDto> roles,
-    List<NotificationDto> notifications,
-    LocalDateTime createdDate
-  ) {
+  public UserDto(UUID idUser, String nmUser, String username, StatusEnum stUser, String password, String imageUrl,
+      String imageName, List<RoleDto> roles, List<NotificationDto> notifications, List<CommentDto> comments, LocalDateTime createdDate) {
     this.idUser = idUser;
     this.nmUser = nmUser;
     this.username = username;
@@ -154,8 +155,11 @@ public class UserDto {
     this.imageName = imageName;
     this.roles = roles;
     this.notifications = notifications;
+    this.comments = comments;
     this.createdDate = createdDate;
   }
 
-  public UserDto() {}
+  public UserDto() {
+  }
+
 }

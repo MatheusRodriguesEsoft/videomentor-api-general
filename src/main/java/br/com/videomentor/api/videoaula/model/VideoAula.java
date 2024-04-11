@@ -1,6 +1,7 @@
 package br.com.videomentor.api.videoaula.model;
 
 import br.com.videomentor.api.classe.model.Classe;
+import br.com.videomentor.api.comment.model.Comment;
 import br.com.videomentor.api.enumerations.StatusEnum;
 import br.com.videomentor.api.subject.model.Subject;
 import br.com.videomentor.api.module.model.Module;
@@ -9,6 +10,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,6 +19,8 @@ import jakarta.persistence.JoinColumn;
 
 import java.util.List;
 import java.util.UUID;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * Videoaula.
@@ -46,6 +50,10 @@ public class VideoAula {
     @ManyToMany
     @JoinTable(name = "classe_videoaula", joinColumns = @JoinColumn(name = "classe_id"), inverseJoinColumns = @JoinColumn(name = "videoaula_id"))
     private List<Classe> classes;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "videoAula")
+    private List<Comment> comments;
 
     @ManyToOne
     @JoinColumn(name = "subject_id")
@@ -113,6 +121,14 @@ public class VideoAula {
         this.classes = classes;
     }
 
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
     public Subject getSubject() {
         return subject;
     }
@@ -138,7 +154,8 @@ public class VideoAula {
     }
 
     public VideoAula(UUID idVideoaula, UUID idTeacher, String videoId, String videoTitle, String videoThumbnails,
-            String videoAuthor, List<Classe> classes, Subject subject, Module module, StatusEnum stVideoaula) {
+            String videoAuthor, List<Classe> classes, List<Comment> comments, Subject subject, Module module,
+            StatusEnum stVideoaula) {
         this.idVideoaula = idVideoaula;
         this.idTeacher = idTeacher;
         this.videoId = videoId;
@@ -146,6 +163,7 @@ public class VideoAula {
         this.videoThumbnails = videoThumbnails;
         this.videoAuthor = videoAuthor;
         this.classes = classes;
+        this.comments = comments;
         this.subject = subject;
         this.module = module;
         this.stVideoaula = stVideoaula;

@@ -1,5 +1,10 @@
 package br.com.videomentor.api.teacher.service;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
 import br.com.videomentor.api.commons.AbstractService;
 import br.com.videomentor.api.enumerations.RolesEnum;
 import br.com.videomentor.api.exceptions.HandleRuntimeException;
@@ -13,10 +18,6 @@ import br.com.videomentor.api.teacher.model.Teacher;
 import br.com.videomentor.api.teacher.repository.TeacherRepository;
 import br.com.videomentor.api.user.model.User;
 import br.com.videomentor.api.user.repository.UserRepository;
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -53,9 +54,7 @@ public class TeacherService implements AbstractService<TeacherDto> {
     Teacher teacher = teacherConverter.dtoToOrm(teacherDto);
     Notification notification = new Notification();
     notification.setNmNotification("Redefinição de senha");
-    notification.setMessage(
-      "Para redefinir sua senha utilize a senha temporária enviado para seu email."
-    );
+    notification.setMessage("Para redefinir sua senha utilize a senha temporária enviado para seu email.");
     notification.setActions(0);
     notificationRepository.save(notification);
     teacher.setRoles(Collections.singletonList(role));
@@ -65,36 +64,27 @@ public class TeacherService implements AbstractService<TeacherDto> {
 
   @Override
   public TeacherDto retrieveById(UUID uuid) {
-    Teacher teacher = teacherRepository
-      .findById(uuid)
-      .orElseThrow(() -> new NotFoundException("Teacher not found"));
+    Teacher teacher = teacherRepository.findById(uuid).orElseThrow(() -> new NotFoundException("Teacher not found"));
     return teacherConverter.ormToDto(teacher);
   }
 
   @Override
   public Page<TeacherDto> retrieveAll(Pageable pageable) {
-    List<Teacher> teachers = teacherRepository
-      .findAll()
-      .stream()
-      .collect(Collectors.toList());
-    List<TeacherDto> teacherDtos = teachers
-      .stream()
-      .map(t -> teacherConverter.ormToDto(t))
-      .collect(Collectors.toList());
-    Page<TeacherDto> page = new PageImpl<TeacherDto>(
-      teacherDtos,
-      pageable,
-      teachers.size()
-    );
+    List<Teacher> teachers = teacherRepository.findAll().stream().collect(Collectors.toList());
+    List<TeacherDto> teacherDtos = teachers.stream().map(t -> teacherConverter.ormToDto(t))
+        .collect(Collectors.toList());
+    Page<TeacherDto> page = new PageImpl<TeacherDto>(teacherDtos, pageable, teachers.size());
     return page;
+  }
+
+  public List<TeacherDto> findBySubjectId(UUID subjectId) {
+    return teacherConverter.ormListToDtoList(teacherRepository.findBySubjectsId(subjectId));
   }
 
   @Override
   public TeacherDto update(TeacherDto teacherDto) {
     try {
-      Teacher teacher = teacherRepository.getReferenceById(
-        teacherDto.getIdUser()
-      );
+      Teacher teacher = teacherRepository.getReferenceById(teacherDto.getIdUser());
       teacherRepository.save(teacherConverter.dtoToOrm(teacherDto, teacher));
       return teacherConverter.ormToDto(teacher, teacherDto);
     } catch (Exception e) {
@@ -105,9 +95,7 @@ public class TeacherService implements AbstractService<TeacherDto> {
 
   @Override
   public void delete(UUID uuid) {
-    Teacher teacher = teacherRepository
-      .findById(uuid)
-      .orElseThrow(() -> new NotFoundException("Teacher not found"));
+    Teacher teacher = teacherRepository.findById(uuid).orElseThrow(() -> new NotFoundException("Teacher not found"));
     teacherRepository.deleteById(teacher.getIdUser());
   }
 }

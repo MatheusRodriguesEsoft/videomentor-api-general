@@ -1,8 +1,12 @@
 package br.com.videomentor.api.student.repository;
 
 import br.com.videomentor.api.student.model.Student;
+
+import java.util.List;
 import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
+import br.com.videomentor.api.classe.model.Classe;
+
 
 /**
  * StudentRepository.
@@ -11,4 +15,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @version 1.0
  */
 
-public interface StudentRepository extends JpaRepository<Student, UUID> {}
+public interface StudentRepository extends JpaRepository<Student, UUID> {
+    List<Student> findByClasse(Classe classe);
+}

@@ -1,12 +1,14 @@
 package br.com.videomentor.api.videoaula.dto;
 
 import br.com.videomentor.api.classe.dto.ClasseDto;
+import br.com.videomentor.api.comment.dto.CommentDto;
 import br.com.videomentor.api.enumerations.StatusEnum;
 import br.com.videomentor.api.subject.dto.SubjectDto;
 import br.com.videomentor.api.module.dto.ModuleDto;
 
 import java.util.List;
 import java.util.UUID;
+
 
 /**
  * VideoAulaDto.
@@ -29,6 +31,8 @@ public class VideoAulaDto {
     private String videoAuthor;
 
     private List<ClasseDto> classes;
+
+    private List<CommentDto> comments;
 
     private SubjectDto subject;
 
@@ -92,6 +96,14 @@ public class VideoAulaDto {
         this.classes = classes;
     }
 
+    public List<CommentDto> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<CommentDto> comments) {
+        this.comments = comments;
+    }
+
     public SubjectDto getSubject() {
         return subject;
     }
@@ -117,7 +129,7 @@ public class VideoAulaDto {
     }
 
     public VideoAulaDto(UUID idVideoaula, UUID idTeacher, String videoId, String videoTitle, String videoThumbnails,
-            String videoAuthor, List<ClasseDto> classes, SubjectDto subject, ModuleDto module, StatusEnum stVideoaula) {
+            String videoAuthor, List<ClasseDto> classes, List<CommentDto> comments, SubjectDto subject, ModuleDto module, StatusEnum stVideoaula) {
         this.idVideoaula = idVideoaula;
         this.idTeacher = idTeacher;
         this.videoId = videoId;
@@ -125,6 +137,7 @@ public class VideoAulaDto {
         this.videoThumbnails = videoThumbnails;
         this.videoAuthor = videoAuthor;
         this.classes = classes;
+        this.comments = comments;
         this.subject = subject;
         this.module = module;
         this.stVideoaula = stVideoaula;

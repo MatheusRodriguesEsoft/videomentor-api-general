@@ -4,7 +4,6 @@ import br.com.videomentor.api.commons.AbstractConverter;
 import br.com.videomentor.api.module.dto.ModuleDto;
 import br.com.videomentor.api.module.model.Module;
 import br.com.videomentor.api.subject.converter.SubjectConverter;
-import br.com.videomentor.api.videoaula.converter.VideoAulaConverter;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,8 +22,6 @@ public class ModuleConverter implements AbstractConverter<Module, ModuleDto> {
   @Autowired
   private SubjectConverter subjectConverter;
 
-  @Autowired
-  private VideoAulaConverter videoAulaConverter;
 
   @Override
   public Module dtoToOrm(ModuleDto dto, Module orm) {

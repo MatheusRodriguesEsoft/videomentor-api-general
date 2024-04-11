@@ -1,5 +1,9 @@
 package br.com.videomentor.api.module.service;
 
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
 import br.com.videomentor.api.commons.AbstractService;
 import br.com.videomentor.api.exceptions.HandleRuntimeException;
 import br.com.videomentor.api.module.converter.ModuleConverter;
@@ -7,9 +11,6 @@ import br.com.videomentor.api.module.dto.ModuleDto;
 import br.com.videomentor.api.module.model.Module;
 import br.com.videomentor.api.module.repository.ModuleRepository;
 import br.com.videomentor.api.subject.model.Subject;
-import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

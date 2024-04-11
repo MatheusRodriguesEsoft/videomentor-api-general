@@ -8,6 +8,5 @@ package br.com.videomentor.api.enumerations;
  */
 
 public enum StatusEnum {
-    INACTIVE,
-    ACTIVE;
+    INACTIVE, ACTIVE,
 }
