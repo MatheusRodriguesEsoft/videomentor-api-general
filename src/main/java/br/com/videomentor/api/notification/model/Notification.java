@@ -1,4 +1,4 @@
-package br.com.videomentor.api.notification.orm;
+package br.com.videomentor.api.notification.model;
 
 import java.util.UUID;
 

@@ -4,7 +4,7 @@ import br.com.videomentor.api.commons.AbstractService;
 import br.com.videomentor.api.exceptions.NotFoundException;
 import br.com.videomentor.api.notification.converter.NotificationConverter;
 import br.com.videomentor.api.notification.dto.NotificationDto;
-import br.com.videomentor.api.notification.orm.Notification;
+import br.com.videomentor.api.notification.model.Notification;
 import br.com.videomentor.api.notification.repository.NotificationRepository;
 import br.com.videomentor.api.user.repository.UserRepository;
 import java.util.List;

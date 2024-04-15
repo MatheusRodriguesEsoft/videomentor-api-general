@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import br.com.videomentor.api.commons.AbstractService;
 import br.com.videomentor.api.enumerations.RolesEnum;
 import br.com.videomentor.api.exceptions.HandleRuntimeException;
-import br.com.videomentor.api.notification.orm.Notification;
+import br.com.videomentor.api.notification.model.Notification;
 import br.com.videomentor.api.notification.repository.NotificationRepository;
 import br.com.videomentor.api.role.model.Role;
 import br.com.videomentor.api.role.repository.RoleRepository;

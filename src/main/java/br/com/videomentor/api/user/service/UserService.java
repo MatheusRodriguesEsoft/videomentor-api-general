@@ -31,7 +31,7 @@ import br.com.videomentor.api.enumerations.StatusPassword;
 import br.com.videomentor.api.exceptions.AuthenticationException;
 import br.com.videomentor.api.exceptions.HandleRuntimeException;
 import br.com.videomentor.api.exceptions.NotFoundException;
-import br.com.videomentor.api.notification.orm.Notification;
+import br.com.videomentor.api.notification.model.Notification;
 import br.com.videomentor.api.notification.repository.NotificationRepository;
 import br.com.videomentor.api.role.model.Role;
 import br.com.videomentor.api.role.repository.RoleRepository;

@@ -3,7 +3,7 @@ package br.com.videomentor.api.teacher.model;
 import br.com.videomentor.api.classe.model.Classe;
 import br.com.videomentor.api.comment.model.Comment;
 import br.com.videomentor.api.enumerations.StatusEnum;
-import br.com.videomentor.api.notification.orm.Notification;
+import br.com.videomentor.api.notification.model.Notification;
 import br.com.videomentor.api.role.model.Role;
 import br.com.videomentor.api.subject.model.Subject;
 import br.com.videomentor.api.user.model.User;

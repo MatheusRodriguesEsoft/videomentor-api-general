@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import br.com.videomentor.api.commons.AbstractConverter;
 import br.com.videomentor.api.notification.dto.NotificationDto;
-import br.com.videomentor.api.notification.orm.Notification;
+import br.com.videomentor.api.notification.model.Notification;
 
 @Component
 public class NotificationConverter implements AbstractConverter<Notification, NotificationDto> {

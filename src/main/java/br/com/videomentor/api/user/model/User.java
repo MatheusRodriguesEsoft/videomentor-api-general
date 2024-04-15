@@ -4,7 +4,7 @@ import br.com.videomentor.api.comment.model.Comment;
 import br.com.videomentor.api.enumerations.StatusEnum;
 import br.com.videomentor.api.enumerations.StatusPassword;
 import br.com.videomentor.api.message.model.Message;
-import br.com.videomentor.api.notification.orm.Notification;
+import br.com.videomentor.api.notification.model.Notification;
 import br.com.videomentor.api.role.model.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
