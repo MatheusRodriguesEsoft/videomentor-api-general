@@ -119,7 +119,7 @@ public class SecurityConfigurations {
   @Bean
   public CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration configuration = new CorsConfiguration();
-    configuration.setAllowedOrigins(Arrays.asList("https://app-videomentor.onrender.com/"));
+    configuration.setAllowedOrigins(Arrays.asList("https://videomentor.onrender.com//"));
     configuration.addAllowedMethod("*");
     configuration.addAllowedHeader("*");
     configuration.setAllowCredentials(true);
