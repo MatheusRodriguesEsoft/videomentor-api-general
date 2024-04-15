@@ -26,14 +26,11 @@ public class VideoAulaConverter implements AbstractConverter<VideoAula, VideoAul
 
   private ModuleConverter moduleConverter;
 
-  private CommentConverter commentConverter;
-
   public VideoAulaConverter(ClasseConverter classeConverter, SubjectConverter subjectConverter,
-      ModuleConverter moduleConverter, CommentConverter commentConverter) {
+      ModuleConverter moduleConverter) {
     this.classeConverter = classeConverter;
     this.subjectConverter = subjectConverter;
     this.moduleConverter = moduleConverter;
-    this.commentConverter = commentConverter;
   }
 
   @Override
@@ -46,7 +43,6 @@ public class VideoAulaConverter implements AbstractConverter<VideoAula, VideoAul
     orm.setVideoThumbnails(dto.getVideoThumbnails());
     orm.setVideoAuthor(dto.getVideoAuthor());
     orm.setStVideoaula(dto.getStVideoaula());
-    orm.setComments(commentConverter.dtoListToOrmList(dto.getComments()));
     orm.setClasses(classeConverter.dtoListToOrmList(dto.getClasses()));
     orm.setSubject(subjectConverter.dtoToOrm(dto.getSubject()));
     orm.setModule(moduleConverter.dtoToOrm(dto.getModule()));
