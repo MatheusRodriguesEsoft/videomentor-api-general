@@ -69,7 +69,8 @@ public class ClasseService implements AbstractService<ClasseDto> {
 
       classeRepository.deleteById(classe.getIdClasse());
     } catch (Exception e) {
-      throw new HandleRuntimeException("Erro ao deletar a classe");
+      throw new HandleRuntimeException(
+          "Erro ao deletar turma, verifique se existe alguma videoaula, professor ou aluno relacionado com a turma");
     }
   }
 
