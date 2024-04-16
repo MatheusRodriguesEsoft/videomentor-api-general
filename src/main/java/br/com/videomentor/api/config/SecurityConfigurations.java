@@ -101,10 +101,10 @@ public class SecurityConfigurations {
 
       // VIDEOAULAS
       auth.requestMatchers(HttpMethod.GET, "/videoaulas/**").hasAnyAuthority(ALL_USERS);
-      auth.requestMatchers(HttpMethod.POST, "/videoaulas/**").hasAuthority("TEACHER");
+      auth.requestMatchers(HttpMethod.POST, "/videoaulas/**").hasAnyAuthority(SUPER_USERS);
       auth.requestMatchers(HttpMethod.PUT, "/videoaulas/**").hasAnyAuthority(ALL_USERS);
-      auth.requestMatchers(HttpMethod.PATCH, "/videoaulas/**").hasAuthority("TEACHER");
-      auth.requestMatchers(HttpMethod.DELETE, "/videoaulas/**").hasAuthority("TEACHER");
+      auth.requestMatchers(HttpMethod.PATCH, "/videoaulas/**").hasAnyAuthority(SUPER_USERS);
+      auth.requestMatchers(HttpMethod.DELETE, "/videoaulas/**").hasAnyAuthority(SUPER_USERS);
 
       // SERIE
       auth.requestMatchers(HttpMethod.GET, "/series/**").hasAnyAuthority(ALL_USERS);
