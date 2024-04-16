@@ -1,7 +1,6 @@
 package br.com.videomentor.api.videoaula.converter;
 
 import br.com.videomentor.api.classe.converter.ClasseConverter;
-import br.com.videomentor.api.comment.converter.CommentConverter;
 import br.com.videomentor.api.commons.AbstractConverter;
 import br.com.videomentor.api.module.converter.ModuleConverter;
 import br.com.videomentor.api.subject.converter.SubjectConverter;

@@ -45,7 +45,11 @@ public class StudentConverter implements AbstractConverter<Student, StudentDto> 
     if (dto.getPassword() != null) {
       orm.setPassword(passwordEncoder.encode(dto.getPassword()));
     }
-    orm.setClasse(classeConverter.dtoToOrm(dto.getClasse()));
+    if (dto.getClasse() != null) {
+      orm.setClasse(classeConverter.dtoToOrm(dto.getClasse()));
+    } else {
+      orm.setClasse(null);
+    }
     orm.setTemporaryPassword(dto.getTemporaryPassword());
     orm.setStUser(dto.getStUser());
     return orm;
@@ -64,7 +68,7 @@ public class StudentConverter implements AbstractConverter<Student, StudentDto> 
     dto.setStUser(orm.getStUser());
     dto.setRoles(roleConverter.ormListToDtoList(orm.getRoles()));
     dto.setNotifications(notificationConverter.ormListToDtoList(orm.getNotifications()));
-    if (orm.getClass() != null) {
+    if (orm.getClasse() != null) {
       dto.setIdClasse(orm.getClasse().getIdClasse());
     }
     if (dto.getPassword() != null) {
