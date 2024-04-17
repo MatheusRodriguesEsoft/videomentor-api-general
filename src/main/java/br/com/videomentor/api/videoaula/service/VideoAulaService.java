@@ -76,13 +76,13 @@ public class VideoAulaService implements AbstractService<VideoAulaDto> {
   public VideoAulaDto update(VideoAulaDto videoAulaDto) {
     try {
       VideoAula videoAula = videoAulaRepository.getReferenceById(videoAulaDto.getIdVideoaula());
+      videoAulaRepository.save(videoAulaConverter.dtoToOrm(videoAulaDto, videoAula));
       videoAulaDto.getComments().forEach(comment -> {
         if (comment.getIdComment() == null) {
           comment.setVideoAula(videoAulaConverter.ormToDto(videoAula));
           commentRepository.save(commentConverter.dtoToOrm(comment));
         }
       });
-      videoAulaRepository.save(videoAulaConverter.dtoToOrm(videoAulaDto, videoAula));
       return videoAulaConverter.ormToDto(videoAula, videoAulaDto);
     } catch (Exception e) {
       new HandleRuntimeException(e.getMessage());
