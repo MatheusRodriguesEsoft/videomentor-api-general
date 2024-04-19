@@ -72,6 +72,11 @@ public class VideoAulaService implements AbstractService<VideoAulaDto> {
     return videoAulas.stream().map(videoAulaConverter::ormToDto).collect(Collectors.toList());
   }
 
+  public List<VideoAulaDto> retrieveByIdTeacher(UUID idTeacher) {
+    List<VideoAula> videoAulas = videoAulaRepository.findByIdTeacher(idTeacher);
+    return videoAulas.stream().map(videoAulaConverter::ormToDto).collect(Collectors.toList());
+  }
+
   @Override
   public VideoAulaDto update(VideoAulaDto videoAulaDto) {
     try {

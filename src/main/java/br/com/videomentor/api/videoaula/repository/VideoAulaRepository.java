@@ -19,4 +19,7 @@ public interface VideoAulaRepository extends JpaRepository<VideoAula, UUID> {
     List<VideoAula> findByClasses(Classe classe);
 
     List<VideoAula> findByModule(Module module);
+
+    List<VideoAula> findByIdTeacher(UUID idTeacher);
+
 }

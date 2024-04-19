@@ -7,6 +7,8 @@ import br.com.videomentor.api.commons.AbstractController;
 import br.com.videomentor.api.module.converter.ModuleConverter;
 import br.com.videomentor.api.module.dto.ModuleDto;
 import br.com.videomentor.api.module.service.ModuleService;
+import br.com.videomentor.api.teacher.dto.TeacherDto;
+import br.com.videomentor.api.teacher.service.TeacherService;
 import br.com.videomentor.api.videoaula.dto.VideoAulaDto;
 import br.com.videomentor.api.videoaula.service.VideoAulaService;
 import jakarta.validation.Valid;
@@ -35,13 +37,17 @@ public class VideoAulaController implements AbstractController<VideoAulaDto> {
 
   private ModuleConverter moduleConverter;
 
+  private TeacherService teacherService;
+
   public VideoAulaController(VideoAulaService videoAulaService, ClasseService classeService,
-      ModuleService moduleService, ClasseConverter classeConverter, ModuleConverter moduleConverter) {
+      ModuleService moduleService, ClasseConverter classeConverter, ModuleConverter moduleConverter,
+      TeacherService teacherService) {
     this.classeService = classeService;
     this.videoAulaService = videoAulaService;
     this.moduleService = moduleService;
     this.classeConverter = classeConverter;
     this.moduleConverter = moduleConverter;
+    this.teacherService = teacherService;
   }
 
   /**
@@ -92,6 +98,16 @@ public class VideoAulaController implements AbstractController<VideoAulaDto> {
     return ResponseEntity.ok(videoAulas);
   }
 
+  @GetMapping("/teacher/{idTeacher}")
+  public ResponseEntity<List<VideoAulaDto>> retrieveByIdTeacher(@PathVariable UUID idTeacher) {
+    TeacherDto teacher = teacherService.retrieveById(idTeacher);
+    if (teacher == null) {
+      return ResponseEntity.notFound().build();
+    }
+    List<VideoAulaDto> videoAulas = videoAulaService.retrieveByIdTeacher(idTeacher);
+    return ResponseEntity.ok(videoAulas);
+  }
+
   @Override
   @PutMapping
   @Transactional
@@ -111,5 +127,5 @@ public class VideoAulaController implements AbstractController<VideoAulaDto> {
     long totalVideoAulas = videoAulaService.countAll();
     return ResponseEntity.ok(totalVideoAulas);
   }
-  
+
 }
