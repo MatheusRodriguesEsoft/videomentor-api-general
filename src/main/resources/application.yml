@@ -10,7 +10,7 @@ spring:
     password: QXnt5O0DBDromHTveKHzjO2PlEHpYGvi
     # url: jdbc:postgresql://dpg-cms0uuo21fec73cigubg-a:5432/videomentor
     #url: jdbc:postgresql://localhost:5432/videomentor
-    url: postgresql://videomentor:QXnt5O0DBDromHTveKHzjO2PlEHpYGvi@dpg-d0u6lsm3jp1c73fhb9kg-a/videomentor_kubw
+    url: jbdc:postgresql://videomentor:QXnt5O0DBDromHTveKHzjO2PlEHpYGvi@dpg-d0u6lsm3jp1c73fhb9kg-a/videomentor_kubw
     
 
   jpa:
