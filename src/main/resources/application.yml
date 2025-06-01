@@ -4,17 +4,21 @@ java:
 
 spring:
   datasource:
-    username: matheus
-    password: 3TFVyckeLybqds3fm6obXojR4jmZruuZ
-    url: jdbc:postgresql://dpg-cms0uuo21fec73cigubg-a:5432/videomentor
-    # url: jdbc:postgresql://localhost:5432/videomentor
+    #username: postgres
+    username: videomentor
+    #password: Xava0198@
+    password: QXnt5O0DBDromHTveKHzjO2PlEHpYGvi
+    # url: jdbc:postgresql://dpg-cms0uuo21fec73cigubg-a:5432/videomentor
+    #url: jdbc:postgresql://localhost:5432/videomentor
+    url: postgresql://videomentor:QXnt5O0DBDromHTveKHzjO2PlEHpYGvi@dpg-d0u6lsm3jp1c73fhb9kg-a/videomentor_kubw
+    
 
   jpa:
     show-sql: false
     properties:
       hibernate:
-        formate_sql: true
-        enable_lazy_load_no_trans: true
+        "[formate_sql]": true
+        "[enable_lazy_load_no_trans]": true
     generate-ddl: true
     open-in-view: false
     hibernate:
@@ -31,7 +35,8 @@ api:
       secret: ${JWT_SECRETE:DAHFAKHFSBDJFHPQI3RIHF90284879GHFJFWKFNSDFJG3974}
       expiration: 36000000
   url:
-    host: 'api-video-finder.onrender.com'
+    #host: 'api-video-finder.onrender.com'
+    host: 'localhost:8082/'
     path:
       playlist: playlists/
       video: videos/

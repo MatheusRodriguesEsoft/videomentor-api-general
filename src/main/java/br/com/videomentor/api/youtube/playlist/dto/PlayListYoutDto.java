@@ -1,5 +1,6 @@
 package br.com.videomentor.api.youtube.playlist.dto;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import br.com.videomentor.api.youtube.item.Item;
 
 public class PlayListYoutDto implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     public String king;

@@ -6,6 +6,7 @@ import br.com.videomentor.api.comment.model.Comment;
 import br.com.videomentor.api.comment.repository.CommentRepository;
 import br.com.videomentor.api.commons.AbstractService;
 import br.com.videomentor.api.exceptions.HandleRuntimeException;
+import br.com.videomentor.api.exceptions.NotFoundException;
 import br.com.videomentor.api.videoaula.model.VideoAula;
 
 import java.util.List;
@@ -16,7 +17,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.webjars.NotFoundException;
 
 @Service
 public class CommentService implements AbstractService<CommentDto> {
@@ -53,10 +53,10 @@ public class CommentService implements AbstractService<CommentDto> {
     return page;
   }
 
-    public List<CommentDto> retrieveByVideoAula(VideoAula videoAula) {
-      List<Comment> comments = commentRepository.findByVideoAula(videoAula);
-      return comments.stream().map(commentConverter::ormToDto).collect(Collectors.toList());
-    }
+  public List<CommentDto> retrieveByVideoAula(VideoAula videoAula) {
+    List<Comment> comments = commentRepository.findByVideoAula(videoAula);
+    return comments.stream().map(commentConverter::ormToDto).collect(Collectors.toList());
+  }
 
   @Override
   public CommentDto update(CommentDto commentDto) {

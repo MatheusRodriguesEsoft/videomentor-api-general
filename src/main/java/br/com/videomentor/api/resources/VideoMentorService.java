@@ -37,7 +37,7 @@ public class VideoMentorService {
 
                 RestTemplate restTemplate = new RestTemplate();
 
-                UriComponents uriComponents = UriComponentsBuilder.newInstance().scheme("https").host(host)
+                UriComponents uriComponents = UriComponentsBuilder.newInstance().scheme("http").host(host)
                                 .path(pathPlayList + id).build();
                 ResponseEntity<PlayListYoutDto> responseEntity = restTemplate.getForEntity(uriComponents.toString(),
                                 PlayListYoutDto.class);
@@ -48,7 +48,7 @@ public class VideoMentorService {
 
                 RestTemplate restTemplate = new RestTemplate();
 
-                UriComponents uriComponents = UriComponentsBuilder.newInstance().scheme("https").host(host)
+                UriComponents uriComponents = UriComponentsBuilder.newInstance().scheme("http").host(host)
                                 .path(pathVideo + id).build();
 
                 ResponseEntity<VideoDto> responseEntity = restTemplate.getForEntity(uriComponents.toString(),

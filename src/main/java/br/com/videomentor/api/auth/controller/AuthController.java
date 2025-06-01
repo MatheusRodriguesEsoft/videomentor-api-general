@@ -51,16 +51,14 @@ public class AuthController {
   @Transactional
   @PostMapping("/redefine-password")
   public ResponseEntity<ResDto> redefinePassword(
-    @RequestBody RdfPasswordDto rdfPasswordDto
-  ) {
+      @RequestBody RdfPasswordDto rdfPasswordDto) {
     return ResponseEntity.ok(userService.redefinePassword(rdfPasswordDto));
   }
 
   @Transactional
   @PostMapping("/forgot-password")
   public ResponseEntity<ResDto> redefinePassword(
-    @RequestBody ForgotPasswordDto forgotPasswordDto
-  ) {
+      @RequestBody ForgotPasswordDto forgotPasswordDto) {
     return ResponseEntity.ok(userService.forgotPassword(forgotPasswordDto));
   }
 }

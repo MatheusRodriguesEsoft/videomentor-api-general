@@ -6,6 +6,8 @@ import br.com.videomentor.api.classe.model.Classe;
 import br.com.videomentor.api.classe.repository.ClasseRepository;
 import br.com.videomentor.api.commons.AbstractService;
 import br.com.videomentor.api.exceptions.HandleRuntimeException;
+import br.com.videomentor.api.exceptions.NotFoundException;
+
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -14,7 +16,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.webjars.NotFoundException;
 
 @Service
 public class ClasseService implements AbstractService<ClasseDto> {

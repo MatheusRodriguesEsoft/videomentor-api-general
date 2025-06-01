@@ -5,6 +5,7 @@ import br.com.videomentor.api.comment.converter.CommentConverter;
 import br.com.videomentor.api.comment.repository.CommentRepository;
 import br.com.videomentor.api.commons.AbstractService;
 import br.com.videomentor.api.exceptions.HandleRuntimeException;
+import br.com.videomentor.api.exceptions.NotFoundException;
 import br.com.videomentor.api.module.model.Module;
 import br.com.videomentor.api.videoaula.converter.VideoAulaConverter;
 import br.com.videomentor.api.videoaula.dto.VideoAulaDto;
@@ -18,7 +19,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.webjars.NotFoundException;
 
 @Service
 public class VideoAulaService implements AbstractService<VideoAulaDto> {

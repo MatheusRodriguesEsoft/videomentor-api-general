@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import br.com.videomentor.api.commons.AbstractService;
 import br.com.videomentor.api.enumerations.RolesEnum;
 import br.com.videomentor.api.exceptions.HandleRuntimeException;
+import br.com.videomentor.api.exceptions.NotFoundException;
 import br.com.videomentor.api.notification.model.Notification;
 import br.com.videomentor.api.notification.repository.NotificationRepository;
 import br.com.videomentor.api.role.model.Role;
@@ -23,7 +24,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.webjars.NotFoundException;
 
 @Service
 public class TeacherService implements AbstractService<TeacherDto> {

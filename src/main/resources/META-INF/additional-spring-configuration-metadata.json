@@ -3,5 +3,45 @@
     "name": "java.runtime.version",
     "type": "java.lang.String",
     "description": "A description for 'java.runtime.version'"
+  },
+  {
+    "name": "api.security.token.secret",
+    "type": "java.lang.String",
+    "description": "A description for 'api.security.token.secret'"
+  },
+  {
+    "name": "api.security.token.expiration",
+    "type": "java.lang.String",
+    "description": "A description for 'api.security.token.expiration'"
+  },
+  {
+    "name": "api.url.host",
+    "type": "java.lang.String",
+    "description": "A description for 'api.url.host'"
+  },
+  {
+    "name": "api.key",
+    "type": "java.lang.String",
+    "description": "A description for 'api.key'"
+  },
+  {
+    "name": "api.cx",
+    "type": "java.lang.String",
+    "description": "A description for 'api.cx'"
+  },
+  {
+    "name": "playlist.id",
+    "type": "java.lang.String",
+    "description": "A description for 'playlist.id'"
+  },
+  {
+    "name": "api.url.path.playlist",
+    "type": "java.lang.String",
+    "description": "A description for 'api.url.path.playlist'"
+  },
+  {
+    "name": "api.url.path.video",
+    "type": "java.lang.String",
+    "description": "A description for 'api.url.path.video'"
   }
 ]}

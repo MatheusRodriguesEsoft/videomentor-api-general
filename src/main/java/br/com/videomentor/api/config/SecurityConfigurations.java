@@ -34,7 +34,7 @@ public class SecurityConfigurations {
   private static final String[] SUPER_USERS = { "ADMIN", "TEACHER" };
 
   @Bean
-  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+  SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http.csrf(csrf -> {
       csrf.disable();
     });
@@ -117,9 +117,9 @@ public class SecurityConfigurations {
   }
 
   @Bean
-  public CorsConfigurationSource corsConfigurationSource() {
+  CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration configuration = new CorsConfiguration();
-    configuration.setAllowedOrigins(Arrays.asList("https://videomentor.onrender.com/"));
+    configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000/"));
     configuration.addAllowedMethod("*");
     configuration.addAllowedHeader("*");
     configuration.setAllowCredentials(true);
@@ -129,19 +129,19 @@ public class SecurityConfigurations {
   }
 
   @Bean
-  public CorsFilter corsFilter() {
+  CorsFilter corsFilter() {
     CorsFilter corsFilter = new CorsFilter(corsConfigurationSource());
     return corsFilter;
   }
 
   @Bean
-  public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
+  AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
       throws Exception {
     return authenticationConfiguration.getAuthenticationManager();
   }
 
   @Bean
-  public PasswordEncoder passwordEncoder() {
+  PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
   }
 }
