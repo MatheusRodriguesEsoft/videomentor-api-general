@@ -4,43 +4,42 @@ java:
 
 spring:
   datasource:
-    #username: postgres
-    username: videomentor
-    #password: Xava0198@
-    password: QXnt5O0DBDromHTveKHzjO2PlEHpYGvi
-    # url: jdbc:postgresql://dpg-cms0uuo21fec73cigubg-a:5432/videomentor
-    #url: jdbc:postgresql://localhost:5432/videomentor
-    url: jbdc:postgresql://videomentor:QXnt5O0DBDromHTveKHzjO2PlEHpYGvi@dpg-d0u6lsm3jp1c73fhb9kg-a.oregon-postgres.render.com/videomentor_kubw
-    
+    url: jdbc:postgresql://${DB_HOST:videomentor}:${DB_PORT:5432}/${DB_NAME}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
 
   jpa:
     show-sql: false
     properties:
       hibernate:
-        "[formate_sql]": true
-        "[enable_lazy_load_no_trans]": true
+        format_sql: true
+        enable_lazy_load_no_trans: true
     generate-ddl: true
     open-in-view: false
     hibernate:
       ddl-auto: update
+
   main:
     allow-circular-references: true
 
 server:
   error:
     include-stacktrace: never
+
 api:
   security:
     token:
-      secret: ${JWT_SECRETE:DAHFAKHFSBDJFHPQI3RIHF90284879GHFJFWKFNSDFJG3974}
+      secret: ${JWT_SECRET}
       expiration: 36000000
+
   url:
-    #host: 'api-video-finder.onrender.com'
-    host: 'localhost:8082/'
+    host: https://api-video-finder.onrender.com
     path:
       playlist: playlists/
       video: videos/
-  key: AIzaSyA9FKiDv61Srr4JNp56Ww7yiaHLZIB8rHc
-  cx: a1a672744220d425c
+
+  key: ${GOOGLE_API_KEY}
+  cx: ${GOOGLE_CX}
+
 playlist:
   id: PL3XiMCPOuJvnEpMJL2PpX7qo7JxXt9f32
