@@ -5,10 +5,10 @@ java:
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    #url: jdbc:postgres://dpg-d0u6lsm3jp1c73fhb9kg-a:5432/videomentor_kubw
-    url: jdbc:postgresql://videomentor:QXnt5O0DBDromHTveKHzjO2PlEHpYGvi@dpg-d0u6lsm3jp1c73fhb9kg-a:5432/videomentor_kubw
+    url: jdbc:postgresql://dpg-d0u6lsm3jp1c73fhb9kg-a.oregon-postgres.render.com:5432/videomentor_kubw
     username: videomentor
     password: QXnt5O0DBDromHTveKHzjO2PlEHpYGvi
+
   jpa:
     show-sql: false
     properties:
