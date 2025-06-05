@@ -35,7 +35,7 @@ api:
       expiration: 36000000
 
   url:
-    host: https://api-video-finder.onrender.com
+    host: videomentor-api-video-finder.onrender.com
     path:
       playlist: playlists/
       video: videos/
