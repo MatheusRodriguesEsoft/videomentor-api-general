@@ -31,7 +31,7 @@ server:
 api:
   security:
     token:
-      secret: ${JWT_SECRET}
+      secret: ${JWT_SECRETE:DAHFAKHFSBDJFHPQI3RIHF90284879GHFJFWKFNSDFJG3974}
       expiration: 36000000
 
   url:
@@ -40,8 +40,8 @@ api:
       playlist: playlists/
       video: videos/
 
-  key: ${GOOGLE_API_KEY}
-  cx: ${GOOGLE_CX}
+  key: AIzaSyA9FKiDv61Srr4JNp56Ww7yiaHLZIB8rHc
+  cx: a1a672744220d425c
 
 playlist:
   id: PL3XiMCPOuJvnEpMJL2PpX7qo7JxXt9f32
